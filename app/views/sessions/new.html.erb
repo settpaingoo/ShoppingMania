@@ -1,0 +1,19 @@
+<%= flash[:errors] if flash[:errors] %>
+
+<form action="<%= session_url %>" method="post">
+  <label for="user_email">Email:</label>
+  <input type="text" id="user_email" name="user[email]">
+
+  <br>
+
+  <label for="user_password">Password:</label>
+  <input type="password" id="user_password" name="user[password]">
+
+  <br>
+
+  <%= auth_token %>
+
+  <br>
+
+  <input type="submit" value="Log in">
+</form>

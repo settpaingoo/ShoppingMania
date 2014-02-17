@@ -1,0 +1,7 @@
+<%= flash[:errors] if flash[:errors] %>
+
+<form action="<%= users_url %>" method="post">
+  <%= render partial: "form", locals: { user: @user}%>
+
+  <input type="submit" value="Sign up">
+</form>

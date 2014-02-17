@@ -7,6 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <h1>Shopping Mania</h1>
+
+  <% if current_user %>
+    <nav>
+      <ul>
+        <li>Home</li>
+        <li><%= link_to "Account", user_url(current_user) %></li>
+        <li>Cart</li>
+        <li><%= button_to "Sign Out", session_url, method: :delete %></li>
+      </ul>
+    </nav>
+  <% end %>
 
 <%= yield %>
 

@@ -1,0 +1,15 @@
+<%= flash[:errors] if flash[:errors] %>
+
+<form action="<%= user_url(@user) %>" method="post">
+  <%= render partial: "form", locals: { user: @user}%>
+
+  <label for="user_old_password">Password:</label>
+  <input type="password" id="user_old_password"
+    name="old_password">
+
+  <br>
+
+  <input type="hidden" name="_method" value="put">
+
+  <input type="submit" value="Update information">
+</form>

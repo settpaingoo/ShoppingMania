@@ -5,7 +5,7 @@ class Token < ActiveRecord::Base
 
   before_validation :ensure_token
 
-  belongs_to :user
+  belongs_to :user, inverse_of: :tokens
 
   def self.generate_random_token
     SecureRandom::urlsafe_base64(16);

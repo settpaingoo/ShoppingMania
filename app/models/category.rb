@@ -14,5 +14,5 @@ class Category < ActiveRecord::Base
     foreign_key: :parent_category_id
   )
 
-  has_many :items
+  has_many :items, inverse_of: :category
 end

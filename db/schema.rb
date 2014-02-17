@@ -11,13 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140217203153) do
+ActiveRecord::Schema.define(:version => 20140217214745) do
 
   create_table "brands", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "cart_items", :force => true do |t|
+    t.integer  "cart_id",    :null => false
+    t.integer  "item_id",    :null => false
+    t.integer  "quantity",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cart_items", ["cart_id"], :name => "index_cart_items_on_cart_id"
+  add_index "cart_items", ["quantity"], :name => "index_cart_items_on_quantity"
+
+  create_table "carts", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "checked_out", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name",               :null => false

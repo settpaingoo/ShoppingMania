@@ -1,0 +1,6 @@
+<label>Name: <%= @item.name %></label> <br>
+<label>Price: <%= @item.price %></label> <br>
+<label>Description: <%= @item.description %></label> <br>
+<label>Item Number: <%= @item.id %></label> <br>
+
+<%= link_to "Back", category_items_url(@item.category) %>

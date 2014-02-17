@@ -1,0 +1,7 @@
+<ul>
+<% @items.each do |item| %>
+  <li><%= link_to item.name, item_url(item) %></li>
+<% end %>
+</ul>
+
+<%= link_to "Back", categories_url %>

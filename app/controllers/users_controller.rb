@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       sign_in(@user)
-      redirect_to user_url(@user)
+      redirect_to categories_url
     else
       flash[:errors] = "Could not create a new account"
       render :new
@@ -21,8 +21,11 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+
     if @user.authenticate(params[:old_password]) &&
       @user.update_attributes(params[:user])
+
+        flash[:notice] = "Successfully updated"
         redirect_to user_url(@user)
     else
       flash[:errors] = "Could not update user information"

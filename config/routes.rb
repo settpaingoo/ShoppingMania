@@ -1,6 +1,12 @@
 ShoppingMania::Application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :users, except: [:index, :destroy]
+
+  resources :categories, only: :index do
+    resources :items, only: :index
+  end
+
+  resources :items, only: :show
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

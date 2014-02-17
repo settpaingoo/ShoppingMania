@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     if user
       sign_in(user)
-      redirect_to user_url(user)
+      redirect_to categories_url
     else
       flash[:errors] = "Incorrect email/password combination"
       render :new

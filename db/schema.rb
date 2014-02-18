@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140217214745) do
+ActiveRecord::Schema.define(:version => 20140218173238) do
 
   create_table "brands", :force => true do |t|
     t.string   "name",       :null => false
@@ -27,14 +27,14 @@ ActiveRecord::Schema.define(:version => 20140217214745) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "cart_items", ["cart_id", "item_id"], :name => "index_cart_items_on_cart_id_and_item_id", :unique => true
   add_index "cart_items", ["cart_id"], :name => "index_cart_items_on_cart_id"
-  add_index "cart_items", ["quantity"], :name => "index_cart_items_on_quantity"
+  add_index "cart_items", ["item_id"], :name => "index_cart_items_on_item_id"
 
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
-    t.boolean  "checked_out", :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
@@ -62,6 +62,26 @@ ActiveRecord::Schema.define(:version => 20140217214745) do
   add_index "items", ["brand_id"], :name => "index_items_on_brand_id"
   add_index "items", ["category_id"], :name => "index_items_on_category_id"
 
+  create_table "order_items", :force => true do |t|
+    t.integer  "order_id",   :null => false
+    t.integer  "item_id",    :null => false
+    t.integer  "price",      :null => false
+    t.integer  "quantity",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "order_items", ["item_id"], :name => "index_order_items_on_item_id"
+  add_index "order_items", ["order_id"], :name => "index_order_items_on_order_id"
+
+  create_table "orders", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
   create_table "tokens", :force => true do |t|
     t.integer  "user_id",      :null => false
     t.string   "token_string", :null => false
@@ -70,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20140217214745) do
   end
 
   add_index "tokens", ["token_string"], :name => "index_tokens_on_token_string", :unique => true
+  add_index "tokens", ["user_id"], :name => "index_tokens_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name",      :null => false

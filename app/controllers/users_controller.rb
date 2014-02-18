@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    #check for params for password and delete if all are nil
     @user = current_user
 
     if @user.authenticate(params[:old_password]) &&

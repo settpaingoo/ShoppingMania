@@ -12,9 +12,9 @@
   <% if current_user %>
     <nav>
       <ul>
-        <li>Home</li>
+        <li><%= link_to "Home", categories_url %></li>
         <li><%= link_to "Account", user_url(current_user) %></li>
-        <li>Cart</li>
+        <li><%= link_to "Cart", cart_url(current_user.cart) %></li>
         <li><%= button_to "Sign Out", session_url, method: :delete %></li>
       </ul>
     </nav>

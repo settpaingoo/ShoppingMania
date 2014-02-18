@@ -10,6 +10,7 @@ module SessionsHelper
   def sign_in(user)
     token = user.tokens.create
     @current_user = user
+    user.cart || user.create_cart
     session[:session_token] = token.token_string
   end
 

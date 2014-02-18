@@ -15,6 +15,7 @@ class Token < ActiveRecord::Base
     loop do
       token = Token.generate_random_token
 
+      #probably don't need this
       unless Token.exists?(['token_string = ?', token])
         self.token_string = token
         break

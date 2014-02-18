@@ -1,0 +1,29 @@
+<%= flash[:errors] if flash[:errors] %>
+<%= flash[:notice] if flash[:notice] %><br>
+
+<ul>
+<% @cart.cart_items.each do |cart_item| %>
+  <li>
+    <% item = cart_item.item %>
+    <label>Name: <%= item.name %></label><br>
+    <label>Price: <%= item.price %></label><br>
+
+    <form action="<%= cart_item_url(cart_item) %>" method="post">
+      <input type="hidden" name="_method" value="put">
+      <%= auth_token %>
+
+      <label for="cart_item_quantity">Quantity:</label>
+      <input type="number" id="cart_item_quantity"
+        name="cart_item[quantity]" value="<%= cart_item.quantity %>">
+
+      <input type="submit" value="Update Quantity">
+    </form><br>
+
+    <label>Total: <%= cart_item.subtotal %></label>
+    <%= button_to "Remove Item", cart_item_url(cart_item), method: :delete%>
+  </li>
+<% end %>
+</ul>
+
+<label>Grand Total: <%= @cart.total %></label>
+<%= button_to "Checkout", orders_url %>

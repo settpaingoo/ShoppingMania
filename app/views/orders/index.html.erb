@@ -1,0 +1,15 @@
+<ul>
+<% @orders.each do |order| %>
+  <li>
+    <label>Order ID: <%= order.id %></label><br>
+    <ul>
+    <% order.order_items.each do |order_item| %>
+      <li>Name: <%= order_item.item.name %><br>
+        Price: <%= order_item.price %><br>
+        Quantity: <%= order_item.quantity %>
+      </li>
+    <% end %>
+    </ul>
+  </li>
+<% end %>
+</ul>

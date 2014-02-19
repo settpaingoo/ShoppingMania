@@ -7,9 +7,23 @@
 <label>Description: <%= @item.description %></label> <br>
 <label>Item Number: <%= @item.id %></label> <br>
 <label>Brand: <%= @item.brand.name %></label> <br>
+<% if @item_rating >= 1 %>
+<label>Rating: <%= @item_rating %></label><br>
+<% end %>
+
+<label>Reviews</label>
+<ul>
+<% @item.reviews.each do |review| %>
+  <li>
+    <%= review.title %><br>
+    <%= review.body %>
+  </li>
+<% end %>
+</ul>
 
 <%= link_to "Back", items_url %>
 
 <% if current_user %>
   <%= render partial: "add_items_form", locals: { item: @item } %>
+  <%= link_to "Write a review", new_item_review_url(@item) %>
 <% end %>

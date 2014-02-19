@@ -1,0 +1,15 @@
+<form action="<%= item_reviews_url %>" method="post">
+
+  <%= auth_token %>
+
+  <label for"review_rating">Rating (1-5)</label>
+  <input type="number" id="review_rating" name="review[rating]"><br>
+
+  <label for="review_title">Title</label><br>
+  <input type="text" id="review_title" name="review[title]"><br>
+
+  <label for="review_body">Body</label><br>
+  <textarea id="review_body" name="review[body]"></textarea><br>
+
+  <input type="submit" value="Submit review">
+</form>

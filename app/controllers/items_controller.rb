@@ -52,6 +52,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @item_rating = @item.average_rating
   end
 
   def destroy

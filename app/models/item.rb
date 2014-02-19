@@ -11,6 +11,7 @@ class Item < ActiveRecord::Base
   belongs_to :brand
   belongs_to :category
   has_many :photos, dependent: :destroy, inverse_of: :item
+  has_many :reviews
 
   def self.filter(options)
 
@@ -42,6 +43,10 @@ class Item < ActiveRecord::Base
     return items if (category_ids.nil? || category_ids.empty?)
 
     items.where("category_id IN (?)", category_ids)
+  end
+
+  def average_rating
+    self.reviews.average("rating").to_f.round(1)
   end
 
   def add_stock(quantity)

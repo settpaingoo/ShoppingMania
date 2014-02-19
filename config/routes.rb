@@ -6,6 +6,7 @@ ShoppingMania::Application.routes.draw do
 
   resources :items do
     resources :cart_items, only: :create
+    resources :reviews, only: [:new, :create]
   end
 
   resources :cart_items, only: [:update, :destroy]

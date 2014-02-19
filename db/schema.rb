@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140219151000) do
+ActiveRecord::Schema.define(:version => 20140219205709) do
 
   create_table "brands", :force => true do |t|
     t.string   "name",       :null => false
@@ -93,6 +93,20 @@ ActiveRecord::Schema.define(:version => 20140219151000) do
   end
 
   add_index "photos", ["item_id"], :name => "index_photos_on_item_id"
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "item_id",    :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "rating",     :null => false
+    t.string   "title",      :null => false
+    t.text     "body",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "reviews", ["item_id", "user_id"], :name => "index_reviews_on_item_id_and_user_id", :unique => true
+  add_index "reviews", ["item_id"], :name => "index_reviews_on_item_id"
+  add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
 
   create_table "tokens", :force => true do |t|
     t.integer  "user_id",      :null => false

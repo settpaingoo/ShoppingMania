@@ -1,7 +1,9 @@
 ShoppingMania::Application.routes.draw do
+  #review routes
   resource :session, only: [:new, :create, :destroy]
   resources :users, except: [:index, :destroy] do
     resources :orders, only: :index
+    resources :wishlists, only: :index
   end
 
   resources :items do

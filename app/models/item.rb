@@ -46,6 +46,7 @@ class Item < ActiveRecord::Base
   end
 
   def average_rating
+    #cache
     self.reviews.average("rating").to_f.round(1)
   end
 

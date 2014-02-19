@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :tokens
   has_one :cart
   has_many :orders, include: :order_items
+  has_many :wishlists, include: :wishlist_items
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email);

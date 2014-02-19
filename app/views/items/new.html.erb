@@ -1,0 +1,6 @@
+<form action="<%= items_url %>" method="post">
+
+  <%= render partial:"item_form", locals: { item: @item } %>
+
+  <input type="submit" value="Add new item">
+</form>

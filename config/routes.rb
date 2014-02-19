@@ -8,7 +8,7 @@ ShoppingMania::Application.routes.draw do
     resources :items, only: :index
   end
 
-  resources :items, only: :show do
+  resources :items, only: [:new, :create, :edit, :update, :show] do
     resources :cart_items, only: :create
   end
 
@@ -16,7 +16,7 @@ ShoppingMania::Application.routes.draw do
   resources :carts, only: :show
   resources :orders, only: :create
 
-  root to: "sessions#new"
+  root to: "categories#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

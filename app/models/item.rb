@@ -7,6 +7,7 @@ class Item < ActiveRecord::Base
 
   belongs_to :brand
   belongs_to :category
+  has_many :photos
 
   def self.filter(items, options)
 

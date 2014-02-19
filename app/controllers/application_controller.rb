@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_url unless current_user
   end
 
+  def require_admin!
+    redirect_to root_url unless current_user.admin?
+  end
+
   def filter_user_password_params(params)
     if (params[:user][:password].empty? && params[:user][:password_confirmation].empty?)
       params[:user].delete :password

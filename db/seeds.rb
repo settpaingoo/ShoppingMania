@@ -11,6 +11,14 @@ User.create([
     email: "userone@test.com", password: "password"}
 ])
 
+user = User.create(
+  {first_name: "User", last_name: "Admin",
+    email: "admin@test.com", password: "password"}
+)
+
+user.is_admin = true
+user.save!
+
 Category.create([
   {name: "Men"},
   {name: "Women"},

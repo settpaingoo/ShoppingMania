@@ -1,0 +1,8 @@
+<form action="<%= item_url(@item) %>" method="post">
+
+  <input type="hidden" name="_method" value="put">
+
+  <%= render partial:"item_form", locals: { item: @item } %>
+
+  <input type="submit" value="Update item">
+</form>

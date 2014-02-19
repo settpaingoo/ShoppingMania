@@ -1,4 +1,5 @@
 <%= flash[:errors] if flash[:errors] %>
+<%= flash[:notice] if flash[:notice] %><br>
 
 <form action="<%= user_url(@user) %>" method="post">
   <%= render partial: "form", locals: { user: @user}%>

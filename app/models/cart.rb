@@ -18,8 +18,7 @@ class Cart < ActiveRecord::Base
   end
 
   def checkout
-    order = user.orders.new
-    if order.add_items(self)
+    if Order.create_new_order(self)
       self.destroy
       return true
     end

@@ -8,15 +8,17 @@ class Order < ActiveRecord::Base
 
   #make_sure to avoid (n+1) queries
   #ask TA
-  def add_items(cart)
+  def self.create_new_order(cart)
+    order = Order.new(user_id: cart.user_id)
+
     cart.cart_items.each do |cart_item|
-      self.order_items.new(
+      order.order_items.new(
         item_id: cart_item.item_id,
         price: cart_item.item.price,
         quantity: cart_item.quantity
       )
     end
 
-    self.save
+    order.save
   end
 end

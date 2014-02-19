@@ -20,14 +20,19 @@ class UsersController < ApplicationController
   end
 
   def update
-    #check for params for password and delete if all are nil
+    filter_user_password_params(params)
     @user = current_user
 
-    if @user.authenticate(params[:old_password]) &&
-      @user.update_attributes(params[:user])
+    if params[:user][:password]
+      update_status = @user.authenticate(params[:old_password]) &&
+        @user.update_attributes(params[:user])
+    else
+      update_status = @user.update_attributes(params[:user])
+    end
 
-        flash[:notice] = "Successfully updated"
-        redirect_to user_url(@user)
+    if update_status
+      flash[:notice] = "Successfully updated"
+      redirect_to user_url(@user)
     else
       flash[:errors] = "Could not update user information"
       render :edit

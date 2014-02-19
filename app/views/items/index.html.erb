@@ -7,32 +7,6 @@
 <% end %>
 </ul>
 
-<form action="<%= category_items_url(@items.first.category_id) %>" method="get">
-  <label>Filter by</label><br>
-  <label>Price</label><br>
-  <label for="filter_min_price">Minimum</label>
-    <input type="number" name="price[min]" id="filter_min_price"
-      value="">
-  <label for="filter_max_price">Maximum</label>
-    <input type="number" name="price[max]" id="filter_max_price"
-      value="">
-  <br>
-
-  <label>Brand</label><br>
-  <ul>
-  <% @brands.each do |brand| %>
-    <li>
-      <input type="checkbox"
-        name="brand_ids[]"
-        value="<%= brand.id %>"
-        id="brand_<%= brand.id %>">
-      <label for="brand_<%= brand.id %>"><%= brand.name %></label>
-    </li>
-  <% end %>
-  </ul>
-
-  <input type="submit" value="Filter">
-
-</form>
-
 <%= link_to "Back", categories_url %>
+
+<%= render partial: "filter_items_form", locals: { items: @items, brands: @brands}%>

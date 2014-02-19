@@ -6,6 +6,10 @@ class ItemsController < ApplicationController
       params[:price][:max] = params[:price][:max].to_i
     end
 
+    if params[:brand_ids]
+      params[:brand_ids] = params[:brand_ids].map(&:to_i)
+    end
+
     items = Item.where(["category_id = ?", params[:category_id]])
     @items = Item.filter(items, params)
     category_brand_ids = items.map(&:brand_id).uniq

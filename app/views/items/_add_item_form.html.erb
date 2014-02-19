@@ -1,0 +1,13 @@
+<form action="<%= item_cart_items_url(item) %>" method="post">
+  <%= flash[:errors] if flash[:errors] %>
+  <%= flash[:notice] if flash[:notice] %><br>
+
+  <%= auth_token %>
+
+  <label for="cart_item_quantity">Quantity</label>
+  <input type="number" id="cart_item_quantity" name="cart_item[quantity]">
+
+  <br>
+
+  <input type="submit" value="Add to Cart">
+</form>

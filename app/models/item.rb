@@ -14,16 +14,18 @@ class Item < ActiveRecord::Base
 
   def self.filter(options)
 
-    items = Item.filter_by_price(options[:price])
+    items = Item.filter_by_price(items, options[:price])
     items = Item.filter_by_brand(items, options[:brand_ids])
     items = Item.filter_by_category(items, options[:category_ids])
+    items = items.search_by_name(options[:name]) unless options[:name].empty?
 
     items
   end
 
-  def self.filter_by_price(price_options)
+  def self.filter_by_price(items, price_options)
     min_price = price_options[:min]
     max_price = price_options[:max]
+
     items = Item.where("price >= ?", min_price)
     items = items.where("price <= ?", max_price) if max_price > 0
 

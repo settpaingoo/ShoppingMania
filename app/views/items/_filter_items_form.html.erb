@@ -1,5 +1,9 @@
 <form action="<%= items_url %>" method="get">
   <label>Filter by</label><br>
+
+  <label for="filter_name">Name</label>
+  <input type="text" name="name" id="filter_name" value="<%= params[:name] %>"><br>
+
   <label>Price</label><br>
   <label for="filter_min_price">Minimum</label>
     <input type="number" name="price[min]" id="filter_min_price"

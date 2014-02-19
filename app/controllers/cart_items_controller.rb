@@ -29,7 +29,7 @@ class CartItemsController < ApplicationController
   def destroy
     cart_item = CartItem.find(params[:id])
     cart_item.remove
-    redirect_to categories_url
+    redirect_to :back
   end
 
 end

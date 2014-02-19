@@ -1,5 +1,15 @@
 require 'spec_helper'
 
 describe Brand do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "allows mass-assignment of attributes" do
+    it { should allow_mass_assignment_of(:name) }
+  end
+
+  context "validates presence of mandatory attributes" do
+    it { should validate_presence_of(:name) }
+  end
+
+  context "has associations" do
+    it { should have_many(:items) }
+  end
 end

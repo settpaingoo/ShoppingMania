@@ -5,21 +5,13 @@ class Token < ActiveRecord::Base
 
   before_validation :ensure_token
 
-  belongs_to :user, inverse_of: :tokens
+  belongs_to :user
 
   def self.generate_random_token
     SecureRandom::urlsafe_base64(16);
   end
 
   def ensure_token
-    loop do
-      token = Token.generate_random_token
-
-      #probably don't need this
-      unless Token.exists?(['token_string = ?', token])
-        self.token_string = token
-        break
-      end
-    end
+    self.token_string = Token.generate_random_token
   end
 end

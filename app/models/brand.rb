@@ -3,5 +3,5 @@ class Brand < ActiveRecord::Base
 
   validates :name, presence: true
 
-  has_many :items, inverse_of: :brand
+  has_many :items
 end

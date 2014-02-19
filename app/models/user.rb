@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
-  has_many :tokens
-  has_one :cart
-  has_many :orders
+  has_many :tokens, inverse_of: :user
+  has_one :cart, inverse_of: :user
+  has_many :orders, inverse_of: :user, include: :order_items
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email);

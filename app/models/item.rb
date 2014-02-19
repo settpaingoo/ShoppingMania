@@ -2,13 +2,11 @@ class Item < ActiveRecord::Base
   attr_accessible :name, :price, :stock, :brand_id, :category_id, :description
 
   validates :name, :price, :stock, :brand, :category, presence: true
-  validates :price, numericality: {greater_than: 0 }
+  validates :price, numericality: { greater_than: 0 }
+  validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  belongs_to :brand, inverse_of: :items
-  belongs_to :category, inverse_of: :items
-
-  has_many :cart_items
-  has_many :order_items
+  belongs_to :brand
+  belongs_to :category
 
   def self.filter(items, options)
 

@@ -38,6 +38,7 @@ group :test do
   gem 'faker'
   gem 'capybara'
   gem 'launchy'
+  gem 'shoulda-matchers'
 end
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

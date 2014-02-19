@@ -1,5 +1,35 @@
 require 'spec_helper'
 
 describe OrderItem do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "allows mass-assignment of attributes" do
+    it { should allow_mass_assignment_of(:order_id) }
+    it { should allow_mass_assignment_of(:item_id) }
+    it { should allow_mass_assignment_of(:price) }
+    it { should allow_mass_assignment_of(:quantity) }
+  end
+
+  context "validates presence of mandatory attributes" do
+    it { should validate_presence_of(:order) }
+    it { should validate_presence_of(:item) }
+    it { should validate_presence_of(:price) }
+    it { should validate_presence_of(:quantity) }
+  end
+
+  context "validates quantity" do
+    it { should validate_numericality_of(:quantity).is_greater_than(0) }
+    it { should validate_numericality_of(:quantity).only_integer }
+  end
+
+  context "validates price" do
+    it { should validate_numericality_of(:quantity).is_greater_than(0) }
+  end
+
+  context "validates that same item is not duplicated in each order" do
+    it { should validate_uniqueness_of(:item_id).scoped_to(:order_id)}
+  end
+
+  context "has associations" do
+    it { should belong_to(:order) }
+    it { should belong_to(:item) }
+  end
 end

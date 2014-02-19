@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 
   def index
     #sort by order date(most recent one on top)
-    @orders = Order.includes(order_items: :item).where("user_id = ?", current_user.id)
+    @orders = current_user.orders
   end
 
   def create

@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
 
   def show
-    @cart = Cart.includes(cart_items: :item).find(current_user.cart.id)
+    @cart = current_user.cart
   end
 end

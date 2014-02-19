@@ -1,10 +1,15 @@
+<% @item.photos.each do |photo| %>
+  <img src="<%= photo.image.url(:thumb) %>">
+<% end %><br>
+
 <label>Name: <%= @item.name %></label> <br>
 <label>Price: $<%= @item.price %></label> <br>
 <label>Description: <%= @item.description %></label> <br>
 <label>Item Number: <%= @item.id %></label> <br>
 <label>Brand: <%= @item.brand.name %></label> <br>
 
+<%= link_to "Back", items_url %>
 
-<%= link_to "Back", category_items_url(@item.category) %>
-
-<%= render partial: "add_items_form", locals: { item: @item}%>
+<% if current_user %>
+  <%= render partial: "add_items_form", locals: { item: @item } %>
+<% end %>

@@ -4,19 +4,16 @@ ShoppingMania::Application.routes.draw do
     resources :orders, only: :index
   end
 
-  resources :categories, only: :index do
-    resources :items, only: :index
-  end
-
-  resources :items, only: [:new, :create, :edit, :update, :show] do
+  resources :items do
     resources :cart_items, only: :create
   end
 
   resources :cart_items, only: [:update, :destroy]
   resources :carts, only: :show
   resources :orders, only: :create
+  resources :photos, only: :destroy
 
-  root to: "categories#index"
+  root to: "items#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,4 +1,7 @@
 class Item < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search_by_name, against: :name
+
   attr_accessible :name, :price, :stock, :brand_id, :category_id, :description
 
   validates :name, :price, :stock, :brand, :category, presence: true
@@ -7,22 +10,21 @@ class Item < ActiveRecord::Base
 
   belongs_to :brand
   belongs_to :category
-  has_many :photos
+  has_many :photos, dependent: :destroy, inverse_of: :item
 
-  def self.filter(items, options)
+  def self.filter(options)
 
-    items = Item.filter_by_price(items, options[:price])
+    items = Item.filter_by_price(options[:price])
     items = Item.filter_by_brand(items, options[:brand_ids])
+    items = Item.filter_by_category(items, options[:category_ids])
 
     items
   end
 
-  def self.filter_by_price(items, price_options)
-    return items if price_options.nil?
-
+  def self.filter_by_price(price_options)
     min_price = price_options[:min]
     max_price = price_options[:max]
-    items = items.where("price >= ?", min_price) if min_price > 0
+    items = Item.where("price >= ?", min_price)
     items = items.where("price <= ?", max_price) if max_price > 0
 
     items
@@ -32,6 +34,12 @@ class Item < ActiveRecord::Base
     return items if (brand_ids.nil? || brand_ids.empty?)
 
     items.where("brand_id IN (?)", brand_ids)
+  end
+
+  def self.filter_by_category(items, category_ids)
+    return items if (category_ids.nil? || category_ids.empty?)
+
+    items.where("category_id IN (?)", category_ids)
   end
 
   def add_stock(quantity)

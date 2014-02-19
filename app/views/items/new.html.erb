@@ -1,4 +1,4 @@
-<form action="<%= items_url %>" method="post">
+<form action="<%= items_url %>" method="post" enctype="multipart/form-data">
 
   <%= render partial:"item_form", locals: { item: @item } %>
 

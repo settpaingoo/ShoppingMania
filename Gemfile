@@ -7,8 +7,9 @@ gem 'rails', '3.2.15'
 
 gem 'pg'
 gem 'figaro'
-gem 'paperclip'
+gem 'paperclip', "~> 3.5.3"
 gem 'aws-sdk'
+gem 'pg_search'
 
 # Gems used only for assets and not required
 # in production environments by default.

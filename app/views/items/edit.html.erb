@@ -1,4 +1,9 @@
-<form action="<%= item_url(@item) %>" method="post">
+<% @item.photos.each do |photo| %>
+  <img src="<%= photo.image.url(:thumb) %>">
+  <%= button_to "Remove Photo", photo_url(photo) , method: :delete %><br>
+<% end %>
+
+<form action="<%= item_url(@item) %>" method="post" enctype="multipart/form-data">
 
   <input type="hidden" name="_method" value="put">
 

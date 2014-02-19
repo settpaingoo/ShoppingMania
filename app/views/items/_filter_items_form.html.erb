@@ -1,4 +1,4 @@
-<form action="<%= category_items_url(items.first.category_id) %>" method="get">
+<form action="<%= items_url %>" method="get">
   <label>Filter by</label><br>
   <label>Price</label><br>
   <label for="filter_min_price">Minimum</label>
@@ -9,7 +9,7 @@
       value="<%= params[:price][:max] if params[:price] && params[:price][:max] > 0 %>">
   <br>
 
-  <label>Brand</label><br>
+  <label>Brands</label><br>
   <ul>
   <% brands.each do |brand| %>
     <li>
@@ -19,6 +19,20 @@
         id="brand_<%= brand.id %>"
         <%= "checked" if params[:brand_ids] && params[:brand_ids].include?(brand.id) %>>
       <label for="brand_<%= brand.id %>"><%= brand.name %></label>
+    </li>
+  <% end %>
+  </ul>
+
+  <label>Categories</label><br>
+  <ul>
+  <% categories.each do |category| %>
+    <li>
+      <input type="checkbox"
+        name="category_ids[]"
+        value="<%= category.id %>"
+        id="category_<%= category.id %>"
+        <%= "checked" if params[:category_ids] && params[:category_ids].include?(category.id) %>>
+      <label for="category_<%= category.id %>"><%= category.name %></label>
     </li>
   <% end %>
   </ul>

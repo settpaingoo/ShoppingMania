@@ -7,6 +7,5 @@
 <% end %>
 </ul>
 
-<%= link_to "Back", categories_url %>
-
-<%= render partial: "filter_items_form", locals: { items: @items, brands: @brands}%>
+<%= render partial: "filter_items_form",
+  locals: { items: @items, brands: Brand.all, categories: Category.all }%>

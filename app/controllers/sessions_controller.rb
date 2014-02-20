@@ -5,16 +5,25 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_credentials(
-      params[:user][:email],
-      params[:user][:password]
-    )
+    if request.env['omniauth.auth']
+      auth = request.env['omniauth.auth']
+      user = User.find_by_uid(auth[:uid]) || User.create_from_fb_data(auth)
+    else
+      user = User.find_by_credentials(
+        params[:user][:email],
+        params[:user][:password]
+      )
+    end
 
-    if user
+    if user && user.activated?
       sign_in(user)
       redirect_to root_url
     else
-      flash[:errors] = "Incorrect email/password combination"
+      if user.nil?
+        flash[:errors] = "Incorrect email/password combination"
+      else
+        flash[:notice] = "Please check your email and activate your account"
+      end
       render :new
     end
   end

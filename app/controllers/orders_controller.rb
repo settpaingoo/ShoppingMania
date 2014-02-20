@@ -7,11 +7,12 @@ class OrdersController < ApplicationController
 
   def create
     cart = current_user.cart
-
-    if cart.checkout
+    order = cart.checkout
+    if order
       #after call_back in the model
       current_user.create_cart
-      redirect_to categories_url
+      UserMailer.order_confirmation_email(current_user, order).deliver!
+      redirect_to root_url
     else
       flash[:errors] = "Something went wrong with checkout process"
       redirect_to cart_url(cart)

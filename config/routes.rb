@@ -1,19 +1,27 @@
 ShoppingMania::Application.routes.draw do
   #review routes
+  get "auth/facebook/callback" => "sessions#create"
+  get "users/activate" => "users#activate"
+  get "users/reset_password" => "users#reset_password"
+  post "users/reset_password" => "users#send_password_token"
+  put "users/reset_password" => "users#update_password"
+
   resource :session, only: [:new, :create, :destroy]
   resources :users, except: [:index, :destroy] do
-    resources :orders, only: :index
-    resources :wishlists, only: :index
+    collection do
+      resources :orders, only: [:index, :create]
+      resources :wishlists, only: [:index, :create]
+      resources :carts, only: :show
+    end
   end
 
   resources :items do
     resources :cart_items, only: :create
+    resources :wishlist_items, only: :create
     resources :reviews, only: [:new, :create]
   end
 
   resources :cart_items, only: [:update, :destroy]
-  resources :carts, only: :show
-  resources :orders, only: :create
   resources :photos, only: :destroy
 
   root to: "items#index"

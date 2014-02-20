@@ -1,5 +1,6 @@
 class Item < ActiveRecord::Base
   include PgSearch
+  #review later
   pg_search_scope :search_by_name, against: :name
 
   attr_accessible :name, :price, :stock, :brand_id, :category_id, :description

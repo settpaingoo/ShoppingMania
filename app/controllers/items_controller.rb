@@ -52,6 +52,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @wishlists = current_user.wishlists
     @item_rating = @item.average_rating
   end
 

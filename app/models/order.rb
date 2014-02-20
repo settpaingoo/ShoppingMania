@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   has_many :order_items, inverse_of: :order, include: :item
 
   #make_sure to avoid (n+1) queries
-  #ask TA
+  #use import to bulk insert all cart_items
   def self.create_new_order(cart)
     order = Order.new(user_id: cart.user_id)
 
@@ -19,6 +19,6 @@ class Order < ActiveRecord::Base
       )
     end
 
-    order.save
+    order.save ? order : nil
   end
 end

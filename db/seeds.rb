@@ -6,17 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create([
+user = User.new(
   {first_name: "User", last_name: "One",
     email: "userone@test.com", password: "password"}
-])
+)
+user.activated = true
+user.save!
 
-user = User.create(
+user = User.new(
   {first_name: "User", last_name: "Admin",
     email: "admin@test.com", password: "password"}
 )
 
 user.is_admin = true
+user.activated = true
 user.save!
 
 Category.create([

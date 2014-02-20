@@ -18,11 +18,12 @@ class Cart < ActiveRecord::Base
   end
 
   def checkout
-    if Order.create_new_order(self)
+    order = Order.create_new_order(self)
+    if order
       self.destroy
-      return true
+      order
+    else
+      nil
     end
-
-    false
   end
 end

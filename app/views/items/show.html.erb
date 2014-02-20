@@ -27,3 +27,16 @@
   <%= render partial: "add_items_form", locals: { item: @item } %>
   <%= link_to "Write a review", new_item_review_url(@item) %>
 <% end %>
+
+<form action="<%= item_wishlist_items_url(@item) %>" method="post">
+  <%= auth_token %>
+
+  <label for="wishlist_id">Wishlist</label>
+  <select id="wishlist_id" name="wishlist[id]">
+    <% @wishlists.each do |wishlist| %>
+    <option value="<%= wishlist.id %>"><%= wishlist.name %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Add item to wishlist">
+</form>

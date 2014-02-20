@@ -8,7 +8,7 @@
 
   <label for="user_password">Password:</label>
   <input type="password" id="user_password" name="user[password]">
-
+  <%= link_to "Forgot password?", users_reset_password_url %>
   <br>
 
   <%= auth_token %>
@@ -16,4 +16,5 @@
   <br>
 
   <input type="submit" value="Log in">
+  <label>OR <a href="/auth/facebook">Log in with Facebook</a></label>
 </form>

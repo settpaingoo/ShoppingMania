@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140219223340) do
+ActiveRecord::Schema.define(:version => 20140220200906) do
 
   create_table "brands", :force => true do |t|
     t.string   "name",       :null => false
@@ -126,9 +126,12 @@ ActiveRecord::Schema.define(:version => 20140219223340) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "is_admin",        :default => false
+    t.string   "uid"
+    t.boolean  "activated",       :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["uid"], :name => "index_users_on_uid"
 
   create_table "wishlist_items", :force => true do |t|
     t.integer  "wishlist_id", :null => false

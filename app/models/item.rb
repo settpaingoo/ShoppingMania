@@ -54,7 +54,7 @@ class Item < ActiveRecord::Base
       items.order("price")
     when "price_desc"
       items.order("price").reverse_order
-    when "most_recent"
+    when "recent"
       items.order("created_at").reverse_order
     when "rating"
       items.joins(:reviews).group("items.id").order("AVG(reviews.rating) DESC")

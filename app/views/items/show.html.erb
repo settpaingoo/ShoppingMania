@@ -39,13 +39,21 @@
   <% end %>
   </ul>
 
-  <%= render partial: "reviews/new" if current_user %>
+  <%= render partial: "reviews/new", locals: { item: @item } if current_user %>
 </div>
 
 <%= link_to "Back", items_url %>
 
 <% if current_user %>
   <div>
+    <% if flash[:error] %>
+      <label class="error"><%= flash[:error] %></label>
+    <% end %>
+
+    <%if flash[:notice] %>
+      <label class="notice"><%= flash[:notice] %></label>
+    <% end %>
+
     <%= render partial: "cart_items/new", locals: { item: @item } %>
     <%= render partial: "wishlist_items/new", locals: { item: @item, wishlists: @wishlists } %>
   </div>

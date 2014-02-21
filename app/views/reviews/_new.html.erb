@@ -1,4 +1,11 @@
-<form action="<%= item_reviews_url %>" method="post">
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <label class="error"><%= error %></label>
+  <% end %>
+<% end %>
+
+<label>Post a review</label>
+<form action="<%= item_reviews_url(item) %>" method="post">
 
   <%= auth_token %>
 

@@ -6,13 +6,20 @@ gem 'rails', '3.2.15'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+
 gem 'figaro'
+
 gem 'paperclip', "~> 3.5.3"
 gem 'aws-sdk'
+
 gem 'pg_search'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
+
 gem 'addressable'
+
+gem 'activerecord-import', ">= 0.2.0"
 
 # Gems used only for assets and not required
 # in production environments by default.

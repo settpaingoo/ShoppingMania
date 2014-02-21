@@ -1,15 +1,22 @@
+<% if flash[:notice] %>
+  <label class="notice"><%= flash[:notice] %></label>
+<% end %>
+
 <ul>
 <% @orders.each do |order| %>
   <li>
     <label>Order ID: <%= order.id %></label><br>
     <ul>
     <% order.order_items.each do |order_item| %>
-      <li>Name: <%= order_item.item.name %><br>
-        Price: <%= order_item.price %><br>
-        Quantity: <%= order_item.quantity %>
+      <li>
+        <label>Name: <%= order_item.item.name %></label>
+        <label>Price: <%= order_item.price %></label>
+        <label>Quantity: <%= order_item.quantity %></label>
+        <label>Subtotal: <%= order_item.subtotal %></label>
       </li>
     <% end %>
     </ul>
+    <label>Order Total: <%= order.total %></label>
   </li>
 <% end %>
 </ul>

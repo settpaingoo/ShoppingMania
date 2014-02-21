@@ -6,19 +6,32 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :order_items, inverse_of: :order, include: :item
 
-  #make_sure to avoid (n+1) queries
-  #use import to bulk insert all cart_items
-  def self.create_new_order(cart)
-    order = Order.new(user_id: cart.user_id)
+  after_commit :switch_user_carts
 
-    cart.cart_items.each do |cart_item|
-      order.order_items.new(
-        item_id: cart_item.item_id,
-        price: cart_item.item.price,
-        quantity: cart_item.quantity
-      )
+  def checkout(cart)
+    Order.transaction do
+      self.save!
+
+      order_items = []
+      cart.cart_items.each do |cart_item|
+        order_items << OrderItem.new(
+          order_id: self.id,
+          item_id: cart_item.item_id,
+          price: cart_item.item.price,
+          quantity: cart_item.quantity
+        )
+      end
+
+      OrderItem.import order_items
     end
+  end
 
-    order.save ? order : nil
+  def total
+    order_items.map(&:subtotal).inject(:+)
+  end
+
+  def switch_user_carts
+    user.cart.destroy
+    user.create_cart
   end
 end

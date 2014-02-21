@@ -11,10 +11,10 @@ class ReviewsController < ApplicationController
 
     if @review.save
       flash[:notice] = "Thank you for writing the review"
-      redirect_to item_url(params[:item_id])
     else
-      flash[:errors] = "Could not add the review"
-      render :new
+      flash[:errors] = @review.errors.full_messages
     end
+
+    redirect_to item_url(params[:item_id])
   end
 end

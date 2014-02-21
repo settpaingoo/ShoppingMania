@@ -14,10 +14,10 @@ class CartItem < ActiveRecord::Base
 
     if item.add_stock(quantity)
       self.destroy
-      return true
+      true
+    else
+      false
     end
-
-    false
   end
 
   def subtotal
@@ -25,19 +25,21 @@ class CartItem < ActiveRecord::Base
   end
 
   def modify(new_quantity)
-    return false if new_quantity < 0
+    raise "error" if new_quantity < 0
     return remove if new_quantity == 0
 
     difference = new_quantity - quantity
-    return true if difference == 0
-
     item = Item.find(item_id)
-    if difference > 0 && item.remove_stock(difference)
+
+    CartItem.transaction do
+      if difference > 0
+        item.remove_stock(difference)
+      elsif difference < 0
+        item.add_stock(difference.abs)
+      end
+
       self.quantity = new_quantity
-      self.save
-    elsif difference < 0 && item.add_stock(difference.abs)
-      self.quantity = new_quantity
-      self.save
+      self.save!
     end
   end
 end

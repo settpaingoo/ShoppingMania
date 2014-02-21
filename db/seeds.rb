@@ -4,7 +4,7 @@ USERS_COUNT.times do |i|
   user = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
-    email: "user#{i}@test.com",
+    email: "user#{i + 1}@test.com",
     password: "password"
   )
   user.activated = true

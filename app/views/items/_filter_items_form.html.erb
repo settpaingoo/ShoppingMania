@@ -28,7 +28,7 @@
         value="<%= filter[:price][:max] if filter[:price] %>">
   </div>
 
-  <label>Brands</label><br>
+  <label>Brands</label>
   <ul>
   <% brands.each do |brand| %>
     <li>
@@ -42,7 +42,7 @@
   <% end %>
   </ul>
 
-  <label>Categories</label><br>
+  <label>Categories</label>
   <ul>
   <% categories.each do |category| %>
     <li>
@@ -55,5 +55,13 @@
     </li>
   <% end %>
   </ul>
+
+  <label for="filter_rating">Minimum Rating</label>
+  <select id="filter_rating" name="filter[rating]">
+    <% 4.downto(2).each do |rating| %>
+      <option value="<%= rating %>" <%= "selected" if filter[:rating] == rating %>><%= rating %></option>
+    <% end %>
+    <option <%= "selected" unless filter[:rating]%>></option>
+  </select>
 
 </form>

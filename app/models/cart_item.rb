@@ -8,7 +8,7 @@ class CartItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :item
 
-  #call_backs are probably better
+  #after destroy callback
   def remove
     item = Item.find(item_id)
 

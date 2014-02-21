@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
     filter_params[:price].delete(:min) if filter_params[:price][:min].empty?
     filter_params[:price].delete(:max) if filter_params[:price][:max].empty?
+    filter_params.delete(:rating) if filter_params[:rating].empty?
 
     if filter_params[:price].empty?
       filter_params.delete(:price)
@@ -35,6 +36,8 @@ class ApplicationController < ActionController::Base
       params[:filter][:price][:min] = min.to_i if min
       params[:filter][:price][:max] = max.to_i if max
     end
+
+    params[:filter][:rating] = filter_params[:rating].to_i if filter_params[:rating]
 
     filter_params[:brand_ids].map!(&:to_i) if filter_params[:brand_ids]
     filter_params[:category_ids].map!(&:to_i) if filter_params[:category_ids]

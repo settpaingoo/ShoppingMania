@@ -1,7 +1,5 @@
-<% if flash[:errors] %>
-  <% flash[:errors].each do |error| %>
-    <label class="error"><%= error %></label>
-  <% end %>
+<% flash[:errors].try(:each) do |error| %>
+  <label class="error"><%= error %></label>
 <% end %>
 
 <form action="<%= items_url %>" method="post" enctype="multipart/form-data">

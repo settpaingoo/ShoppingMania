@@ -21,6 +21,7 @@ class Item < ActiveRecord::Base
     items = Item.filter_by_price(items, options[:price]) if options[:price]
     items = Item.filter_by_brand(items, options[:brand_ids]) if options[:brand_ids]
     items = Item.filter_by_category(items, options[:category_ids]) if options[:category_ids]
+    items = Item.filter_by_rating(items, options[:rating]) if options[:rating]
     items = items.search_by_name(options[:name]) if options[:name]
 
     items
@@ -37,15 +38,21 @@ class Item < ActiveRecord::Base
   end
 
   def self.filter_by_brand(items, brand_ids)
-    return items if (brand_ids.nil? || brand_ids.empty?)
+    return items if brand_ids.empty?
 
     items.where("brand_id IN (?)", brand_ids)
   end
 
   def self.filter_by_category(items, category_ids)
-    return items if (category_ids.nil? || category_ids.empty?)
+    return items if category_ids.empty?
 
     items.where("category_id IN (?)", category_ids)
+  end
+
+  def self.filter_by_rating(items, min_rating)
+    return items if min_rating > 5
+
+    items.joins(:reviews).group("items.id").having("AVG(reviews.rating) > ?", min_rating)
   end
 
   def self.sort(items, criterium)

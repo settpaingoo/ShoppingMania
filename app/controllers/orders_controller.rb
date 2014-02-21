@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 
     begin
       order.checkout(cart)
-      UserMailer.order_confirmation_email(current_user, order).deliver!
+      UserMailer.order_confirmation_email(current_user, order).deliver! #delayed job
       flash[:notice] = "Order confirmation email has been sent to your email address"
       redirect_to orders_url
     rescue

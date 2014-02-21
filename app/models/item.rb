@@ -12,6 +12,7 @@ class Item < ActiveRecord::Base
   belongs_to :category
   has_many :photos, dependent: :destroy, inverse_of: :item
   has_many :reviews
+  has_many :order_items
 
   def self.filter(options)
     items = Item.includes(:photos)
@@ -57,6 +58,8 @@ class Item < ActiveRecord::Base
       items.order("created_at").reverse_order
     when "rating"
       items.joins(:reviews).group("items.id").order("AVG(reviews.rating) DESC")
+    when "popularity"
+      items.joins(:order_items).group("items.id").order("SUM(order_items.quantity) DESC")
     else
       items
     end

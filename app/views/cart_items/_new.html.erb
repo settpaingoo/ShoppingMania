@@ -1,6 +1,7 @@
+<%= flash[:errors] if flash[:errors] %>
+<%= flash[:notice] if flash[:notice] %><br>
+
 <form action="<%= item_cart_items_url(item) %>" method="post">
-  <%= flash[:errors] if flash[:errors] %>
-  <%= flash[:notice] if flash[:notice] %><br>
 
   <%= auth_token %>
 

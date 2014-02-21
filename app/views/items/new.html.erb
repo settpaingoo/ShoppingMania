@@ -1,6 +1,12 @@
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <label class="error"><%= error %></label>
+  <% end %>
+<% end %>
+
 <form action="<%= items_url %>" method="post" enctype="multipart/form-data">
 
-  <%= render partial:"item_form", locals: { item: @item } %>
+  <%= render partial:"item_fields", locals: { item: @item } %>
 
   <input type="submit" value="Add new item">
 </form>

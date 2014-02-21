@@ -1,7 +1,6 @@
 class Item < ActiveRecord::Base
   include PgSearch
-  #review later
-  pg_search_scope :search_by_name, against: :name
+  pg_search_scope :search_by_name, against: :name #redo later
 
   attr_accessible :name, :price, :stock, :brand_id, :category_id, :description
 
@@ -15,6 +14,8 @@ class Item < ActiveRecord::Base
   has_many :reviews
 
   def self.filter(options)
+    items = Item.includes(:photos)
+    return items if (options.nil? || options.empty?)
 
     items = Item.filter_by_price(items, options[:price])
     items = Item.filter_by_brand(items, options[:brand_ids])
@@ -24,11 +25,11 @@ class Item < ActiveRecord::Base
     items
   end
 
-  def self.filter_by_price(items, price_options)
-    min_price = price_options[:min]
-    max_price = price_options[:max]
+  def self.filter_by_price(items, options)
+    min_price = options[:min]
+    max_price = options[:max]
 
-    items = Item.where("price >= ?", min_price)
+    items = items.where("price >= ?", min_price) if min_price > 0
     items = items.where("price <= ?", max_price) if max_price > 0
 
     items
@@ -52,16 +53,16 @@ class Item < ActiveRecord::Base
   end
 
   def add_stock(quantity)
-    return false if quantity < 1
+    raise "cannot add stock" if quantity < 1
 
     self.stock += quantity
-    self.save
+    self.save!
   end
 
   def remove_stock(quantity)
-    return false if quantity < 1 || quantity > stock
+    raise "cannot remove stock" if quantity < 1 || quantity > stock
 
     self.stock -= quantity
-    self.save
+    self.save!
   end
 end

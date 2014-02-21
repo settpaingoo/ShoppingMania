@@ -1,42 +1,52 @@
-<% @item.photos.each do |photo| %>
-  <img src="<%= photo.image.url(:thumb) %>">
-<% end %><br>
+<div>
+  <% @item.photos.each do |photo| %>
+    <img src="<%= photo.image.url(:thumb) %>">
+  <% end %>
+</div>
 
-<label>Name: <%= @item.name %></label> <br>
-<label>Price: $<%= @item.price %></label> <br>
-<label>Description: <%= @item.description %></label> <br>
-<label>Item Number: <%= @item.id %></label> <br>
-<label>Brand: <%= @item.brand.name %></label> <br>
-<% if @item_rating >= 1 %>
-<label>Rating: <%= @item_rating %></label><br>
-<% end %>
+<div>
+  <label><%= @item.name %></label>
+</div>
+<div>
+  <label>Price: $<%= @item.price %></label>
+</div>
+<div>
+  <label><%= @item.description %></label>
+</div>
+<div>
+  <label>Item Number: <%= @item.id %></label>
+</div>
+<div>
+  <label>Brand: <%= @item.brand.name %></label>
+</div>
 
-<label>Reviews</label>
-<ul>
-<% @item.reviews.each do |review| %>
-  <li>
-    <%= review.title %><br>
-    <%= review.body %>
-  </li>
-<% end %>
-</ul>
+<div>
+  <% if @item_rating >= 1 %>
+    <label>Rating: <%= @item_rating %></label>
+  <% else %>
+    <label>Rating: This item hasn't been rated</label>
+  <% end %>
+</div>
+
+<div>
+  <label>Reviews</label>
+  <ul>
+  <% @item.reviews.each do |review| %>
+    <li>
+      <%= review.title %>
+      <%= review.body %>
+    </li>
+  <% end %>
+  </ul>
+
+  <%= render partial: "reviews/new" if current_user %>
+</div>
 
 <%= link_to "Back", items_url %>
 
 <% if current_user %>
-  <%= render partial: "add_items_form", locals: { item: @item } %>
-  <%= link_to "Write a review", new_item_review_url(@item) %>
+  <div>
+    <%= render partial: "cart_items/new", locals: { item: @item } %>
+    <%= render partial: "wishlist_items/new", locals: { item: @item, wishlists: @wishlists } %>
+  </div>
 <% end %>
-
-<form action="<%= item_wishlist_items_url(@item) %>" method="post">
-  <%= auth_token %>
-
-  <label for="wishlist_id">Wishlist</label>
-  <select id="wishlist_id" name="wishlist[id]">
-    <% @wishlists.each do |wishlist| %>
-    <option value="<%= wishlist.id %>"><%= wishlist.name %></option>
-    <% end %>
-  </select>
-
-  <input type="submit" value="Add item to wishlist">
-</form>

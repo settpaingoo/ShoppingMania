@@ -2,15 +2,15 @@
   <label>Filter by</label><br>
 
   <label for="filter_name">Name</label>
-  <input type="text" name="name" id="filter_name" value="<%= params[:name] %>"><br>
+  <input type="text" name="filter[name]" id="filter_name" value="<%= filter[:name] %>"><br>
 
   <label>Price</label><br>
   <label for="filter_min_price">Minimum</label>
-    <input type="number" name="price[min]" id="filter_min_price"
-      value="<%= params[:price][:min] if params[:price] && params[:price][:min] > 0 %>">
+    <input type="number" name="filter[price][min]" id="filter_min_price"
+      value="<%= filter[:price][:min] if filter[:price] %>">
   <label for="filter_max_price">Maximum</label>
-    <input type="number" name="price[max]" id="filter_max_price"
-      value="<%= params[:price][:max] if params[:price] && params[:price][:max] > 0 %>">
+    <input type="number" name="filter[price][max]" id="filter_max_price"
+      value="<%= filter[:price][:max] if filter[:price] %>">
   <br>
 
   <label>Brands</label><br>
@@ -18,10 +18,10 @@
   <% brands.each do |brand| %>
     <li>
       <input type="checkbox"
-        name="brand_ids[]"
+        name="filter[brand_ids][]"
         value="<%= brand.id %>"
         id="brand_<%= brand.id %>"
-        <%= "checked" if params[:brand_ids] && params[:brand_ids].include?(brand.id) %>>
+        <%= "checked" if filter[:brand_ids] && filter[:brand_ids].include?(brand.id) %>>
       <label for="brand_<%= brand.id %>"><%= brand.name %></label>
     </li>
   <% end %>
@@ -32,10 +32,10 @@
   <% categories.each do |category| %>
     <li>
       <input type="checkbox"
-        name="category_ids[]"
+        name="filter[category_ids][]"
         value="<%= category.id %>"
         id="category_<%= category.id %>"
-        <%= "checked" if params[:category_ids] && params[:category_ids].include?(category.id) %>>
+        <%= "checked" if filter[:category_ids] && filter[:category_ids].include?(category.id) %>>
       <label for="category_<%= category.id %>"><%= category.name %></label>
     </li>
   <% end %>

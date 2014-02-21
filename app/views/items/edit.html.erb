@@ -1,3 +1,13 @@
+<% if flash[:notice] %>
+  <label class="notice"><%= flash[:notice] %></label>
+<% end %>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <label class="error"><%= error %></label>
+  <% end %>
+<% end %>
+
 <% @item.photos.each do |photo| %>
   <img src="<%= photo.image.url(:thumb) %>">
   <%= button_to "Remove Photo", photo_url(photo) , method: :delete %><br>
@@ -7,7 +17,9 @@
 
   <input type="hidden" name="_method" value="put">
 
-  <%= render partial:"item_form", locals: { item: @item } %>
+  <%= render partial:"item_fields", locals: { item: @item } %>
 
   <input type="submit" value="Update item">
 </form>
+
+<%= button_to "Delete Item", item_url(@item), method: :delete %>

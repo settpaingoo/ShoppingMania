@@ -1,5 +1,11 @@
 class ItemsController < ApplicationController
-  before_filter :require_admin!, only: [:new, :create, :edit, :update]
+  before_filter :require_admin!, except: [:index, :show]
+
+  def index
+    parse_filter_params if params[:filter]
+
+    @items = Item.filter(params[:filter])
+  end
 
   def new
     @item = Item.new
@@ -7,15 +13,21 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(params[:item])
-    @item.photos.build([params[:photos]])
+    @item.photos.new([params[:photos]])
 
     if @item.save
       flash[:notice] = "New item has been added"
       redirect_to user_url(current_user)
     else
-      flash[:errors] = "Could not create new item"
+      flash[:errors] = @item.errors.full_messages
       render :new
     end
+  end
+
+  def show
+    @item = Item.find(params[:id])
+    @wishlists = current_user.wishlists if current_user
+    @item_rating = @item.average_rating
   end
 
   def edit
@@ -25,40 +37,25 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if params[:photos]
-      @item.photos.build([params[:photos]])
+      @item.photos.new([params[:photos]])
     end
 
     if @item.update_attributes(params[:item])
       flash[:notice] = "Item has been successfully updated"
-      redirect_to user_url(current_user)
+      redirect_to edit_item_url(@item)
     else
-      flash[:errors] = "Could not update the item"
+      flash[:errors] = @item.errors.full_messages
       render :edit
     end
-  end
-
-  def index
-    params[:brand_ids] && params[:brand_ids].map!(&:to_i)
-    params[:category_ids] && params[:category_ids].map!(&:to_i)
-
-    if params[:price]
-      params[:price][:min] = params[:price][:min].to_i
-      params[:price][:max] = params[:price][:max].to_i
-      @items = Item.filter(params)
-    else
-      @items = Item.all
-    end
-  end
-
-  def show
-    @item = Item.find(params[:id])
-    @wishlists = current_user.wishlists
-    @item_rating = @item.average_rating
   end
 
   def destroy
     item = Item.find(params[:id])
     item.destroy
     redirect_to user_url(current_user)
+  end
+
+  def admin_shortcut
+    redirect_to edit_item_url(params[:item_id])
   end
 end

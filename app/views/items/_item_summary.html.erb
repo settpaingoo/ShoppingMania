@@ -1,0 +1,3 @@
+<img src="<%= item.photos.first.image.url if item.photos.count > 0 %>">
+<%= link_to item.name, item_url(item) %>
+<label>Price: $<%= item.price %></label>

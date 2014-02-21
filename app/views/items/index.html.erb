@@ -1,11 +1,10 @@
 <ul>
 <% @items.each do |item| %>
   <li>
-    <%= link_to item.name, item_url(item) %>
-    Price: $<%= item.price %>
+    <%= render partial: "item_summary", locals: { item: item } %>
   </li>
 <% end %>
 </ul>
 
 <%= render partial: "filter_items_form",
-  locals: { items: @items, brands: Brand.all, categories: Category.all }%>
+  locals: { items: @items, brands: Brand.all, categories: Category.all, filter: params[:filter] || {} }%>

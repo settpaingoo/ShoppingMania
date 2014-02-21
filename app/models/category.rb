@@ -13,6 +13,4 @@ class Category < ActiveRecord::Base
     class_name: "Category",
     foreign_key: :parent_category_id
   )
-
-  has_many :items
 end

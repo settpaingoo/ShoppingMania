@@ -29,7 +29,11 @@ class ApplicationController < ActionController::Base
     if filter_params[:price].empty?
       filter_params.delete(:price)
     else
-      params[:filter][:price] = filter_params[:price].map { |k,v| {k => v.to_i} }
+      min = filter_params[:price][:min]
+      max = filter_params[:price][:max]
+
+      params[:filter][:price][:min] = min.to_i if min
+      params[:filter][:price][:max] = max.to_i if max
     end
 
     filter_params[:brand_ids].map!(&:to_i) if filter_params[:brand_ids]

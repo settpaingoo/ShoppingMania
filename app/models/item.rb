@@ -17,17 +17,17 @@ class Item < ActiveRecord::Base
     items = Item.includes(:photos)
     return items if (options.nil? || options.empty?)
 
-    items = Item.filter_by_price(items, options[:price])
-    items = Item.filter_by_brand(items, options[:brand_ids])
-    items = Item.filter_by_category(items, options[:category_ids])
-    items = items.search_by_name(options[:name]) unless options[:name].empty?
+    items = Item.filter_by_price(items, options[:price]) if options[:price]
+    items = Item.filter_by_brand(items, options[:brand_ids]) if options[:brand_ids]
+    items = Item.filter_by_category(items, options[:category_ids]) if options[:category_ids]
+    items = items.search_by_name(options[:name]) if options[:name]
 
     items
   end
 
   def self.filter_by_price(items, options)
-    min_price = options[:min]
-    max_price = options[:max]
+    min_price = options[:min] || 0
+    max_price = options[:max] || 0
 
     items = items.where("price >= ?", min_price) if min_price > 0
     items = items.where("price <= ?", max_price) if max_price > 0
@@ -45,6 +45,17 @@ class Item < ActiveRecord::Base
     return items if (category_ids.nil? || category_ids.empty?)
 
     items.where("category_id IN (?)", category_ids)
+  end
+
+  def self.sort(items, criterium)
+    case criterium
+    when "price_asc"
+      items.order("price asc")
+    when "price_desc"
+      items.order("price desc")
+    else
+      items
+    end
   end
 
   def average_rating

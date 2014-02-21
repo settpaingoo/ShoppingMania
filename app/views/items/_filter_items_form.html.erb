@@ -1,17 +1,29 @@
 <form action="<%= items_url %>" method="get">
-  <label>Filter by</label><br>
+  <label>Refine your search</label>
+  <input type="submit" value="Search">
 
-  <label for="filter_name">Name</label>
-  <input type="text" name="filter[name]" id="filter_name" value="<%= filter[:name] %>"><br>
+  <div>
+    <label for="sort_criterium">Sort by</label>
+    <select id="sort_criterium" name="sort">
+      <option value="price_asc">Price: Low to High</option>
+      <option value="price_desc">Price: High to Low</option>
+    </select>
+  </div>
 
-  <label>Price</label><br>
-  <label for="filter_min_price">Minimum</label>
-    <input type="number" name="filter[price][min]" id="filter_min_price"
-      value="<%= filter[:price][:min] if filter[:price] %>">
-  <label for="filter_max_price">Maximum</label>
-    <input type="number" name="filter[price][max]" id="filter_max_price"
-      value="<%= filter[:price][:max] if filter[:price] %>">
-  <br>
+  <div>
+    <label for="filter_name">Name</label>
+    <input type="text" name="filter[name]" id="filter_name" value="<%= filter[:name] %>"><br>
+  </div>
+
+  <div>
+    <label>Price</label>
+    <label for="filter_min_price">Minimum</label>
+      <input type="number" name="filter[price][min]" id="filter_min_price"
+        value="<%= filter[:price][:min] if filter[:price] %>">
+    <label for="filter_max_price">Maximum</label>
+      <input type="number" name="filter[price][max]" id="filter_max_price"
+        value="<%= filter[:price][:max] if filter[:price] %>">
+  </div>
 
   <label>Brands</label><br>
   <ul>
@@ -40,7 +52,5 @@
     </li>
   <% end %>
   </ul>
-
-  <input type="submit" value="Filter">
 
 </form>

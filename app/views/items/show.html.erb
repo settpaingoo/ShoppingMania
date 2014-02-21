@@ -31,9 +31,10 @@
 <div>
   <label>Reviews</label>
   <ul>
-  <% @item.reviews.each do |review| %>
+  <% @item.reviews.includes(:user).each do |review| %>
     <li>
-      <%= review.title %>
+      <label>By: <%= review.user.full_name %></label>
+      <h4><%= review.title %></h4>
       <%= review.body %>
     </li>
   <% end %>

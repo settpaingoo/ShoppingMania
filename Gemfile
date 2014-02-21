@@ -38,6 +38,7 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -48,7 +49,6 @@ end
 
 group :test do
   gem 'guard-rspec'
-  gem 'faker'
   gem 'capybara'
   gem 'launchy'
   gem 'shoulda-matchers'

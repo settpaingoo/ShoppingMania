@@ -20,9 +20,9 @@ class SessionsController < ApplicationController
       redirect_to root_url
     else
       if user.nil?
-        flash[:errors] = "Incorrect email/password combination"
+        flash[:error] = "Incorrect email/password combination"
       else
-        flash[:notice] = "Please check your email and activate your account"
+        flash[:error] = "Please check your email and activate your account"
       end
       render :new
     end

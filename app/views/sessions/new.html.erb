@@ -1,20 +1,28 @@
-<%= flash[:errors] if flash[:errors] %>
+<% if flash[:notice] %>
+  <label class="notice"><%= flash[:notice] %></label>
+<% end %>
+
+<% if flash[:error] %>
+  <label class="error"><%= flash[:error] %></label>
+<% end %>
 
 <form action="<%= session_url %>" method="post">
-  <label for="user_email">Email:</label>
-  <input type="email" id="user_email" name="user[email]">
 
-  <br>
+  <div>
+    <label for="user_email">Email:</label>
+    <input type="email" id="user_email" name="user[email]">
+  </div>
 
-  <label for="user_password">Password:</label>
-  <input type="password" id="user_password" name="user[password]">
-  <%= link_to "Forgot password?", users_reset_password_url %>
-  <br>
+  <div>
+    <label for="user_password">Password:</label>
+    <input type="password" id="user_password" name="user[password]">
+  </div>
 
   <%= auth_token %>
-
-  <br>
 
   <input type="submit" value="Log in">
   <label>OR <a href="/auth/facebook">Log in with Facebook</a></label>
 </form>
+
+<%= link_to "Forgot password?", users_reset_password_url %>
+<%= link_to "New User?", new_user_url %>

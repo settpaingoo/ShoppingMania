@@ -1,7 +1,11 @@
-<%= flash[:errors] if flash[:errors] %>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <label class="error"><%= error %></label>
+  <% end %>
+<% end %>
 
 <form action="<%= users_url %>" method="post">
-  <%= render partial: "form", locals: { user: @user}%>
+  <%= render partial: "input_fields", locals: { user: @user } %>
 
   <input type="submit" value="Sign up">
 </form>

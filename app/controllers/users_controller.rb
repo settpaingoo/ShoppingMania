@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :require_current_user!, only: [:edit, :update, :show]
+  before_filter :require_current_user!, only: [:show, :edit, :update]
+
   def new
     @user = User.new
   end
@@ -11,8 +12,17 @@ class UsersController < ApplicationController
       flash[:notice] = "Please check your email to activate your account"
       redirect_to new_session_url
     else
-      flash[:errors] = "Could not create a new account"
+      flash[:errors] = @user.errors.full_messages
       render :new
+    end
+  end
+
+  def show
+    if params[:id].to_i == current_user.id
+      @user = current_user
+      render :show
+    else
+      redirect_to user_url(current_user)
     end
   end
 
@@ -40,26 +50,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = current_user
-    render :show
-  end
-
   def activate
     token = Token.find_by_token_string(params[:activation_token])
+    token.destroy
 
-    if token
-      user = token.user
-      user.activated = true
-      user.save!
+    user = token.user
+    user.activated = true
+    user.save!
+    sign_in(user)
 
-      token.destroy
-      sign_in(user)
-      redirect_to root_url
-    else
-      flash[:errors] = "Couldn't find the associated account"
-      redirect_to new_user_url
-    end
+    redirect_to root_url
   end
 
   def reset_password
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     user = User.find_by_email(params[:user][:email])
     UserMailer.password_reset_email(user).deliver!
     flash[:notice] = "Please check your email for password reset link"
-    redirect_to new_user_url
+    redirect_to new_session_url
   end
 
   def update_password
@@ -86,7 +86,7 @@ class UsersController < ApplicationController
       sign_in(user)
       redirect_to root_url
     else
-      flash[:errors] = "Please choose a valid password"
+      flash[:errors] = user.errors.full_messages
       render :reset_password
     end
   end

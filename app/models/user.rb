@@ -14,9 +14,8 @@ class User < ActiveRecord::Base
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email);
-    return nil if user.nil?
 
-    user.authenticate(password) ? user : nil
+    (user && user.authenticate(password)) ? user : nil
   end
 
   def self.create_from_fb_data(params)

@@ -1,14 +1,21 @@
-<%= flash[:errors] if flash[:errors] %>
-<%= flash[:notice] if flash[:notice] %><br>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <label class="error"><%= error %></label>
+  <% end %>
+<% end %>
+
+<% if flash[:notice] %>
+  <label class="notice"><%= flash[:notice] %></label>
+<% end %>
 
 <form action="<%= user_url(@user) %>" method="post">
-  <%= render partial: "form", locals: { user: @user}%>
+  <%= render partial: "input_fields", locals: { user: @user } %>
 
-  <label for="user_old_password">Password:</label>
-  <input type="password" id="user_old_password"
-    name="old_password">
-
-  <br>
+  <div>
+    <label for="user_old_password">Password:</label>
+    <input type="password" id="user_old_password"
+      name="old_password">
+  </div>
 
   <input type="hidden" name="_method" value="put">
 

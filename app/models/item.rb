@@ -50,16 +50,25 @@ class Item < ActiveRecord::Base
   def self.sort(items, criterium)
     case criterium
     when "price_asc"
-      items.order("price asc")
+      items.order("price")
     when "price_desc"
-      items.order("price desc")
+      items.order("price").reverse_order
+    when "most_recent"
+      items.order("created_at").reverse_order
+    when "rating"
+      items.joins(:reviews).group("items.id").order("AVG(reviews.rating) DESC")
     else
       items
     end
   end
 
   def average_rating
-    #cache
+    Rails.cache.fetch("average_rating_item#{self.id}", :expires_in => 1.hour) do
+      force_average_rating
+    end
+  end
+
+  def force_average_rating
     self.reviews.average("rating").to_f.round(1)
   end
 

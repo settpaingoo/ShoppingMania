@@ -1,10 +1,12 @@
 <ul>
+<%= paginate @items %>
 <% @items.each do |item| %>
   <li>
     <%= render partial: "item_summary", locals: { item: item } %>
   </li>
 <% end %>
 </ul>
+<%= paginate @items %>
 
 <%= render partial: "filter_items_form",
   locals: { items: @items, brands: Brand.all, categories: Category.all, filter: params[:filter] || {} }%>

@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
     parse_filter_params if params[:filter]
 
     items = Item.filter(params[:filter])
-    @items = Item.sort(items, params[:sort])
+    @items = Item.sort(items, params[:sort]).page(params[:page]).per(10)
   end
 
   def new

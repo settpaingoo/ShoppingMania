@@ -14,6 +14,10 @@ gem 'aws-sdk'
 
 gem 'pg_search'
 
+gem 'kaminari'
+
+gem 'redis-rails'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 

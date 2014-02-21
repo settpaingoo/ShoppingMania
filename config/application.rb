@@ -69,6 +69,20 @@ module ShoppingMania
         :request_specs => true
     end
 
+    if ENV["REDISTOGO_URL"]
+      config = ShoppingMania::Application.config
+      uri = URI.parse(ENV["REDISTOGO_URL"])
+
+      config.cache_store = [
+        :redis_store, {
+          :host => uri.host,
+          :port => uri.port,
+          :password => uri.password,
+          :namespace => "cache"
+        }
+      ]
+    end
+
     config.assets.initialize_on_precompile = false
   end
 end

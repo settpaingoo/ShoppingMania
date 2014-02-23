@@ -1,0 +1,24 @@
+<% if flash[:notice] %>
+  <label class="notice"><%= flash[:notice] %></label>
+<% end %>
+<ul>
+  <% @addresses.each do |address| %>
+    <li>
+      <%= address.street %>
+      <%= address.city %>
+      <%= address.state %>
+      <%= address.zipcode %>
+      <%= link_to "Edit", edit_address_url(address) %>
+      <%= button_to "Remove", address_url(address), method: :delete %>
+    </li>
+  <% end %>
+</ul>
+
+<% flash[:errors].try(:each) do |error| %>
+  <label class="error"><%= error %></label>
+<% end %>
+<form action="<%= addresses_url %>" method="post">
+  <%= render partial: "form_fields", locals: { address: @address } %>
+
+  <input type="Submit" value="Add new address">
+</form>

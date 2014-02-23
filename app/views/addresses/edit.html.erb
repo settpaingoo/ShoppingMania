@@ -1,0 +1,11 @@
+<% flash[:errors].try(:each) do |error| %>
+  <label class="error"><%= error %></label>
+<% end %>
+
+<form action="<%= address_url(@address) %>" method="post">
+  <input type="hidden" name="_method" value="put">
+
+  <%= render partial: "form_fields", locals: { address: @address } %>
+
+  <input type="submit" value="Update address">
+</form>

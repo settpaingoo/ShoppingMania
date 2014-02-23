@@ -1,9 +1,5 @@
 class ReviewsController < ApplicationController
 
-  def new
-    @review = Review.new
-  end
-
   def create
     @review = Review.new(params[:review])
     @review.user_id = current_user.id

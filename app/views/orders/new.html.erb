@@ -1,0 +1,28 @@
+<ul>
+  <% @cart.cart_items.each do |cart_item| %>
+    <li>
+      <% item = cart_item.item %>
+      <label>Name: <%= item.name %></label><br>
+      <label>Price: <%= item.price %></label><br>
+      <label>Quantity: <%= cart_item.quantity %></label><br>
+      <label>Subtotal: <%= cart_item.subtotal %></label>
+    </li>
+  <% end %>
+</ul>
+
+<form action="<%= orders_url %>" method="post">
+  <%= auth_token %>
+
+  <div>
+    <% @addresses.each do |address| %>
+    <input type="radio" value="<%= address.id %>" name="address[id]">
+      <%= address.street %>
+      <%= address.city %>
+      <%= address.state %>
+      <%= address.zipcode %>
+    <% end %>
+  </div>
+
+  <input type="submit" value="Order">
+</form>
+

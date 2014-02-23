@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140220200906) do
+ActiveRecord::Schema.define(:version => 20140222005009) do
+
+  create_table "addresses", :force => true do |t|
+    t.string   "street",     :null => false
+    t.string   "city",       :null => false
+    t.string   "state",      :null => false
+    t.string   "zipcode",    :null => false
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
 
   create_table "brands", :force => true do |t|
     t.string   "name",       :null => false
@@ -78,8 +90,10 @@ ActiveRecord::Schema.define(:version => 20140220200906) do
     t.integer  "user_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "address_id", :null => false
   end
 
+  add_index "orders", ["address_id"], :name => "index_orders_on_address_id"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
   create_table "photos", :force => true do |t|

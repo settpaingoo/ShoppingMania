@@ -1,9 +1,10 @@
 class Order < ActiveRecord::Base
-  attr_accessible :user_id
+  attr_accessible :user_id, :address_id
 
-  validates :user, presence: true
+  validates :user, :address, presence: true
 
   belongs_to :user
+  belongs_to :address
   has_many :order_items, inverse_of: :order, include: :item
 
   after_commit :switch_user_carts

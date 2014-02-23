@@ -1,0 +1,28 @@
+<%= auth_token %>
+
+<div>
+  <label for="address_street">Street</label>
+  <input type="text" name="address[street]" id="address_street"
+    value="<%= address.street %>">
+</div>
+
+<div>
+  <label for="address_city">City</label>
+  <input type="text" name="address[city]" id="address_city"
+    value="<%= address.city %>">
+</div>
+
+<div>
+  <label for="address_state">State</label>
+  <select name="address[state]" id="address_state">
+    <% Address::STATES.each do |state| %>
+      <option value="<%= state %>" <%= "selected" if address.state == state %>><%= state %></option>
+    <% end %>
+  </select>
+</div>
+
+<div>
+  <label for="address_zipcode">Zipcode</label>
+  <input type="text" name="address[zipcode]" id="address_zipcode"
+    value="<%= address.zipcode %>">
+</div>

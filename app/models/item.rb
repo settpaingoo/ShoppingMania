@@ -1,6 +1,15 @@
 class Item < ActiveRecord::Base
   include PgSearch
-  pg_search_scope :search_by_name, against: :name #redo later
+  pg_search_scope(
+    :search_by_name,
+    against: :name,
+    using: {
+      tsearch: {
+        prefix: true,
+        dictionary: "english"
+      }
+    }
+  )
 
   attr_accessible :name, :price, :stock, :brand_id, :category_id, :description
 

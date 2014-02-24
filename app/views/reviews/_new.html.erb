@@ -3,7 +3,7 @@
   <%= auth_token %>
 
   <% flash[:errors].try(:each) do |error| %>
-    <label class="error"><%= error %></label>
+    <p class="error"><%= error %></p>
   <% end %>
 
   <div class="choose">

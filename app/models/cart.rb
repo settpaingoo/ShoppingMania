@@ -8,7 +8,7 @@ class Cart < ActiveRecord::Base
     item = Item.find(item_id)
     Cart.transaction do
       item.remove_stock(quantity)
-      self.cart_items.new(item_id: item_id, quantity: quantity)
+      cart_item = self.cart_items.new(item_id: item_id, quantity: quantity)
       self.save!
     end
   end

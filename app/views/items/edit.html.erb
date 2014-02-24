@@ -1,25 +1,32 @@
-<% if flash[:notice] %>
-  <label class="notice"><%= flash[:notice] %></label>
-<% end %>
+<section class="item-form">
+  <ul>
+    <% @item.photos.each do |photo| %>
+      <li class="group">
+        <img src="<%= photo.image.url(:thumb) %>">
+        <%= button_to "Remove Photo", photo_url(photo),
+          method: :delete, form_class: "remove-photo" %>
+      </li>
+    <% end %>
+  </ul>
 
-<% if flash[:errors] %>
-  <% flash[:errors].each do |error| %>
-    <label class="error"><%= error %></label>
-  <% end %>
-<% end %>
+  <form action="<%= item_url(@item) %>" method="post" enctype="multipart/form-data">
 
-<% @item.photos.each do |photo| %>
-  <img src="<%= photo.image.url(:thumb) %>">
-  <%= button_to "Remove Photo", photo_url(photo) , method: :delete %><br>
-<% end %>
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
 
-<form action="<%= item_url(@item) %>" method="post" enctype="multipart/form-data">
+    <% flash[:errors].try(:each) do |error| %>
+      <p class="error"><%= error %></p>
+    <% end %>
 
-  <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="_method" value="put">
 
-  <%= render partial:"item_fields", locals: { item: @item } %>
+    <%= render partial:"item_fields", locals: { item: @item } %>
 
-  <input type="submit" value="Update item">
-</form>
+    <div class="submit">
+      <input type="submit" value="Update item">
+    </div>
+  </form>
 
-<%= button_to "Delete Item", item_url(@item), method: :delete %>
+  <%= button_to "Delete Item", item_url(@item), method: :delete %>
+</section>

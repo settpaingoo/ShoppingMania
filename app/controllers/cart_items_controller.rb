@@ -10,7 +10,12 @@ class CartItemsController < ApplicationController
     rescue
       flash[:error] = "Couldn't add item to the cart"
     ensure
-      redirect_to item_url(params[:item_id])
+      if request.xhr?
+        render partial: "items/status_messages", layout: false
+        clear_flash
+      else
+        redirect_to item_url(params[:item_id])
+      end
     end
   end
 

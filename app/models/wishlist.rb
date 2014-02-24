@@ -4,5 +4,5 @@ class Wishlist < ActiveRecord::Base
   validates :user, :name, presence: true
 
   belongs_to :user
-  has_many :wishlist_items, include: :item
+  has_many :wishlist_items, dependent: :destroy, include: :item
 end

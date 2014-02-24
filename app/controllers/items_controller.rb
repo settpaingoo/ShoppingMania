@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_filter :require_admin!, except: [:index, :show]
 
+  #chosen js plug-in for searchbox
   def index
     parse_filter_params if params[:filter]
 
@@ -21,11 +22,12 @@ class ItemsController < ApplicationController
   def create
     # if cart_item already exists, update the quantity
     @item = Item.new(params[:item])
-    @item.photos.new([params[:photos]])
+    photo_params = params[:photos].values
+    @item.photos.new(photo_params)
 
     if @item.save
       flash[:notice] = "New item has been added"
-      redirect_to user_url(current_user)
+      redirect_to item_url(@item)
     else
       flash[:errors] = @item.errors.full_messages
       render :new
@@ -65,6 +67,10 @@ class ItemsController < ApplicationController
   end
 
   def admin_shortcut
-    redirect_to edit_item_url(params[:item_id])
+    if params[:item_id].empty?
+      redirect_to edit_item_url(Item.first)
+    else
+      redirect_to edit_item_url(params[:item_id])
+    end
   end
 end

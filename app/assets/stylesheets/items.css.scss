@@ -1,6 +1,10 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+input[type="file"] {
+  outline: 0;
+}
+
 .main {
   width: 1260px;
   margin: 10px;
@@ -122,9 +126,10 @@
 
 .item-controls {
   float: right;
-  padding: 15px 15px 0 15px;
+  padding: 20px 20px 10px 25px;
   border: 2px solid #ddd;
   border-radius: 10px;
+  width: 200px;
 }
 
 .choose {
@@ -167,4 +172,52 @@
   border-radius: 5px;
   width: 400px;
   height: 150px;
+}
+
+.item-form {
+  width: 425px;
+  padding: 25px;
+  margin: 100px auto;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.item-form > ul {
+  margin: 0 0 15px 0;
+}
+
+.item-form li {
+  margin: 5px;
+}
+
+.item-form li > img {
+  width: 40px;
+  height: 40px;
+  float: left;
+}
+
+.remove-photo {
+  float: left;
+}
+
+.remove-photo input[type="submit"] {
+  position: relative;
+  color: #fff;
+  background: #08f;
+  padding: 3px;
+  margin: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.remove-photo input[type="submit"]:hover {
+  background: #06f;
+}
+
+.remove-photo input[type="submit"]:active {
+  top: 2px;
+  box-shadow: none;
 }

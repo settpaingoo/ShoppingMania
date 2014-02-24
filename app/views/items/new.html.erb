@@ -1,10 +1,25 @@
-<% flash[:errors].try(:each) do |error| %>
-  <label class="error"><%= error %></label>
-<% end %>
+<form action="<%= items_url %>" method="post" enctype="multipart/form-data" class="item-form">
 
-<form action="<%= items_url %>" method="post" enctype="multipart/form-data">
+  <% flash[:errors].try(:each) do |error| %>
+    <p class="error"><%= error %></p>
+  <% end %>
 
   <%= render partial:"item_fields", locals: { item: @item } %>
 
-  <input type="submit" value="Add new item">
+  <div class="submit">
+    <input type="submit" value="Add new item">
+  </div>
 </form>
+
+<script>
+$(document).ready(function () {
+  var photoIndex = 0;
+
+  $(".item-form").on("change", "input[type='file']", function(event){
+    photoIndex += 1;
+    var inputName = "photos[" + photoIndex + "][image]";
+    var li = "<li><input type='file' name=" + inputName + "></li>";
+    $(".photo-upload-list").append(li);
+  });
+});
+</script>

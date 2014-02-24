@@ -1,31 +1,33 @@
 <%= auth_token %>
 
-<div>
-  <label for="item_photos">Photos:</label>
-  <input type="file" id="item_photos" name="photos[image]">
+<div class="input">
+  <label for="item_photos">Add Photos</label>
+  <ul class="photo-upload-list">
+    <li><input type="file" name="photos[0][image]"></li>
+  </ul>
 </div>
 
-<div>
+<div class="input">
   <label for="item_name">Name:</label>
   <input type="text" id="item_name" name="item[name]" value="<%= item.name %>">
 </div>
 
-<div>
+<div class="input">
   <label for="item_price">Price:</label>
-  <input type="number" id="item_price" name="item[price]" value="<%= item.price %>">
+  <input type="text" id="item_price" name="item[price]" value="<%= item.price %>">
 </div>
 
-<div>
+<div class="input">
   <label for="item_stock">Stock:</label>
-  <input type="number" id="item_stock" name="item[stock]" value="<%= item.stock %>">
+  <input type="text" id="item_stock" name="item[stock]" value="<%= item.stock %>">
 </div>
 
-<div>
+<div class="input">
   <label for="item_description">Description:</label>
   <textarea id="item_description" name="item[description]"><%= item.description %></textarea>
 </div>
 
-<div>
+<div class="input">
   <label for="item_brand">Brand:</label>
   <select id="item_brand" name="item[brand_id]">
     <option value=""></option>
@@ -36,7 +38,7 @@
   </select>
 </div>
 
-<div>
+<div class="input">
   <label for="item_category">Category:</label>
   <select id="item_category" name="item[category_id]">
     <option value=""></option>

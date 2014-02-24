@@ -42,4 +42,10 @@ class ApplicationController < ActionController::Base
     filter_params[:brand_ids].map!(&:to_i) if filter_params[:brand_ids]
     filter_params[:category_ids].map!(&:to_i) if filter_params[:category_ids]
   end
+
+  def clear_flash
+    flash[:notice] = nil
+    flash[:error] = nil
+    flash[:errors] = nil
+  end
 end

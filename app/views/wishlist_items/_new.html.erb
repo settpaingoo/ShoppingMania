@@ -1,13 +1,5 @@
-<form action="<%= item_wishlist_items_url(item) %>" method="post">
+<form action="<%= item_wishlist_items_url(item) %>" method="post" data-remote="true">
   <%= auth_token %>
-
-  <% if flash[:error] %>
-    <p class="error"><%= flash[:error] %></p>
-  <% end %>
-
-  <%if flash[:notice] %>
-    <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
 
   <div class="choose">
     <label for="wishlist_id">Wishlist</label>

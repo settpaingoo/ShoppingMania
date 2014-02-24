@@ -88,9 +88,9 @@ class Item < ActiveRecord::Base
   end
 
   def average_rating
-    # Rails.cache.fetch("average_rating_item#{self.id}", :expires_in => 1.hour) do
+    Rails.cache.fetch("average_rating_item#{self.id}", :expires_in => 1.hour) do
       force_average_rating
-    # end
+    end
   end
 
   def force_average_rating

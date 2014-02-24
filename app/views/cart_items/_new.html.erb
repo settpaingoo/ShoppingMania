@@ -1,11 +1,20 @@
 <form action="<%= item_cart_items_url(item) %>" method="post">
-
   <%= auth_token %>
 
-  <label for="cart_item_quantity">Quantity</label>
-  <input type="number" id="cart_item_quantity" name="cart_item[quantity]">
+  <% if flash[:error] %>
+    <p class="error"><%= flash[:error] %></p>
+  <% end %>
 
-  <br>
+  <%if flash[:notice] %>
+    <p class="notice"><%= flash[:notice] %></p>
+  <% end %>
 
-  <input type="submit" value="Add to Cart">
+  <div class="choose">
+    <label for="cart_item_quantity">Quantity</label>
+    <input type="number" id="cart_item_quantity" name="cart_item[quantity]">
+  </div>
+
+  <div class="button">
+    <input type="submit" value="Add to Cart">
+  </div>
 </form>

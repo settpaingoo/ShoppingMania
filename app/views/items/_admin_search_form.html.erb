@@ -1,0 +1,7 @@
+<form action="<%= admin_edit_items_url %>" method="post">
+  <%= auth_token %>
+  <input type="hidden" name="_method" value="put">
+  <label for="item_id">Item ID:</label>
+  <input type="text" name="item_id" id="item_id">
+  <input type="submit" value="Edit Item">
+</form>

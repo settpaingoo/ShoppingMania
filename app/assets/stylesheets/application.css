@@ -11,3 +11,96 @@
  *= require_self
  *= require_tree .
  */
+
+/* --- RESET --- */
+html, body, form, nav, ul, li, label, h1, h2, h3, h4, div, p {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="submit"],
+button,
+textarea {
+  -webkit-appearance: none;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  box-sizing: content-box;
+  vertical-align: baseline;
+}
+
+body {
+  font-family: sans-serif;
+  background: #eee;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* --- CLEARFIX --- */
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.top-nav-bar {
+  background: #00f;
+  color: #fff;
+  padding: 5px;
+}
+
+.top-nav-bar a {
+  color: #fff;
+  display: block;
+  padding: 5px 10px;
+}
+
+.top-nav-bar li {
+  float: left;
+}
+
+.left-nav-links {
+  float: left;
+}
+
+.right-nav-links {
+  float: right;
+}
+
+.left-nav-links input[type="text"] {
+  border: 2px solid #fff;
+  width: 100px;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+.left-nav-links input[type="text"]:focus {
+  border-color: #0ff;
+}
+
+.left-nav-links form {
+  margin: 3px 10px;
+}
+
+.right-nav-links form {
+  margin: 5px 10px;
+}

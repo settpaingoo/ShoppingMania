@@ -1,23 +1,25 @@
-<% if flash[:errors] %>
-  <% flash[:errors].each do |error| %>
-    <label class="error"><%= error %></label>
-  <% end %>
-<% end %>
+<form action="<%= user_url(@user) %>" method="post" class="user-form">
+  <h3>Edit Information</h3>
 
-<% if flash[:notice] %>
-  <label class="notice"><%= flash[:notice] %></label>
-<% end %>
-
-<form action="<%= user_url(@user) %>" method="post">
   <%= render partial: "input_fields", locals: { user: @user } %>
 
-  <div>
-    <label for="user_old_password">Password:</label>
+  <div class="input">
+    <label for="user_old_password">Old Password:</label>
     <input type="password" id="user_old_password"
       name="old_password">
   </div>
 
   <input type="hidden" name="_method" value="put">
 
-  <input type="submit" value="Update information">
+  <% flash[:errors].try(:each) do |error| %>
+    <label class="error"><%= error %></label>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <label class="notice"><%= flash[:notice] %></label>
+  <% end %>
+
+  <div class="submit">
+    <input type="submit" value="Update information">
+  </div>
 </form>

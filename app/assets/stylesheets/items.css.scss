@@ -1,3 +1,170 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.main {
+  width: 1260px;
+  margin: 10px;
+}
+
+.sidebar {
+  float: left;
+  width: 200px;
+  padding: 15px 25px;
+  background: #fff;
+  border-right: 1px solid #000;
+}
+
+.content {
+  float: right;
+  background: #fff;
+  width: 1000px;
+}
+
+.button > input {
+  position: relative;
+  color: #fff;
+  background: #08f;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+  margin: 0 0 15px 0;
+}
+
+.button > input:hover {
+  background: #06f;
+}
+
+.button > input:active {
+  top: 2px;
+  box-shadow: none;
+};
+
+.criteria {
+  margin: 15px 0;
+}
+
+.criteria > ul {
+  margin: 5px 0;
+}
+
+.criteria > ul > li {
+  margin: 2px 0;
+}
+
+.item {
+  width: 250px;
+  height: 250px;
+}
+
+.item > img {
+  display: block;
+  margin: 10px;
+}
+
+.item a {
+  margin: 5px;
+}
+
+.item p {
+  margin: 5px;
+}
+
+.content li {
+  float: left;
+}
+
+.page-nav-bar > nav {
+  float: right;
+}
+
+.page-nav-bar {
+  padding: 10px;
+}
+
+.item-info {
+  padding: 10px;
+  background: #fff;
+}
+
+.photos-list {
+  float: left;
+}
+
+.photos-list img {
+  width: 50px;
+  height: 50px;
+}
+
+.photo {
+  float: left;
+}
+
+.photo > img {
+  width: 300px;
+  height: 300px;
+  margin: 0 10px;
+}
+
+.item-details {
+  float: left;
+}
+
+.item-details > p {
+  padding: 10px;
+}
+
+.item-details > h2 {
+  padding: 10px;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.item-controls {
+  float: right;
+  padding: 15px 15px 0 15px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+
+.choose {
+  margin: 5px 0;
+}
+
+.choose > input[type="text"] {
+  border: 2px solid #000;
+  border-radius: 5px;
+  width: 70px;
+  margin: 5px 0;
+}
+
+.reviews {
+  margin: 15px;
+}
+
+.reviews > ul {
+  margin: 10px;
+}
+
+.reviews li {
+  margin: 20px 0;
+}
+
+.reviews h3 {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.reviews .input > input[type="text"] {
+  width: 400px;
+}
+
+.input > textarea {
+  background: #fff;
+  padding: 2px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  width: 400px;
+  height: 150px;
+}

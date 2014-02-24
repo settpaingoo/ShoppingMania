@@ -1,12 +1,24 @@
-<ul>
-<%= paginate @items %>
-<% @items.each do |item| %>
-  <li>
-    <%= render partial: "item_summary", locals: { item: item } %>
-  </li>
-<% end %>
-</ul>
-<%= paginate @items %>
+<section class="main">
+  <section class="sidebar">
+    <%= render partial: "filter_items_form",
+      locals: { items: @items, brands: Brand.all, categories: Category.all, filter: params[:filter] || {} }%>
+  </section>
 
-<%= render partial: "filter_items_form",
-  locals: { items: @items, brands: Brand.all, categories: Category.all, filter: params[:filter] || {} }%>
+  <section class="content">
+    <nav class="page-nav-bar group">
+      <%= paginate @items %>
+    </nav>
+
+    <ul class="group">
+    <% @items.each do |item| %>
+      <li>
+        <%= render partial: "item_summary", locals: { item: item } %>
+      </li>
+    <% end %>
+    </ul>
+
+    <nav class="page-nav-bar group">
+      <%= paginate @items %>
+    </nav>
+  </section>
+</section>

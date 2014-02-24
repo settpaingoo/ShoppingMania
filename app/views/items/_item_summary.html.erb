@@ -1,3 +1,15 @@
-<img src="<%= item.photos.first.image.url(:thumb) %>">
-<%= link_to item.name, item_url(item) %>
-<label>Price: $<%= item.price %></label>
+<div class="item">
+  <a href="<%= item_url(item) %>">
+    <img src="<%= item.photos.first.image.url(:thumb) %>">
+  </a>
+  <div class="summary">
+    <%= link_to item.name, item_url(item) %>
+    <p>Price: $<%= item.price %></p>
+    <% rating = item.rating.to_f.round(1) %>
+    <% if rating >= 1%>
+      <p>Rating: <%= item.rating.to_f.round(1) %></p>
+    <% else %>
+      <p>Rating: Not rated yet</p>
+    <% end %>
+  </div>
+</div>

@@ -1,3 +1,49 @@
 // Place all the styles related to the Addresses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.address {
+  background: #fff;
+  width: 225px;
+  padding: 25px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.address > p {
+  margin: 5px;
+}
+
+.address input[type="submit"],
+.address a {
+  position: relative;
+  color: #fff;
+  background: #08f;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+}
+
+.address input:hover,
+.address a:hover {
+  background: #06f;
+}
+
+.address input:active,
+.address a:active {
+  top: 2px;
+  box-shadow: none;
+}
+
+.address .remove {
+  float: right;
+}
+
+.address a {
+  float: left;
+}
+
+.addresses li {
+  float: left;
+}

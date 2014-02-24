@@ -1,11 +1,12 @@
-<% if flash[:errors] %>
-  <% flash[:errors].each do |error| %>
-    <label class="error"><%= error %></label>
-  <% end %>
-<% end %>
-
-<form action="<%= users_url %>" method="post">
+<form class="user-form" action="<%= users_url %>" method="post">
+  <h3>Create New Account</h3>
   <%= render partial: "input_fields", locals: { user: @user } %>
 
-  <input type="submit" value="Sign up">
+  <% flash[:errors].try(:each) do |error| %>
+    <p class="error"><%= error %></p>
+  <% end %>
+
+  <div class="submit">
+    <input type="submit" value="Sign up">
+  </div>
 </form>

@@ -1,12 +1,24 @@
 <form action="<%= item_wishlist_items_url(item) %>" method="post">
   <%= auth_token %>
 
-  <label for="wishlist_id">Wishlist</label>
-  <select id="wishlist_id" name="wishlist[id]">
-    <% wishlists.each do |wishlist| %>
-    <option value="<%= wishlist.id %>"><%= wishlist.name %></option>
-    <% end %>
-  </select>
+  <% if flash[:error] %>
+    <p class="error"><%= flash[:error] %></p>
+  <% end %>
 
-  <input type="submit" value="Add item to wishlist">
+  <%if flash[:notice] %>
+    <p class="notice"><%= flash[:notice] %></p>
+  <% end %>
+
+  <div class="choose">
+    <label for="wishlist_id">Wishlist</label>
+    <select id="wishlist_id" name="wishlist[id]">
+      <% wishlists.each do |wishlist| %>
+      <option value="<%= wishlist.id %>"><%= wishlist.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="button">
+    <input type="submit" value="Add item to wishlist">
+  </div>
 </form>

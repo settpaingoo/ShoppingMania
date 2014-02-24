@@ -16,6 +16,10 @@ class Item < ActiveRecord::Base
 
   def self.filter(options)
     items = Item.includes(:photos)
+              .joins("LEFT OUTER JOIN reviews ON items.id = reviews.item_id")
+              .group("items.id")
+              .select("items.*, AVG(reviews.rating) AS rating")
+
     return items if (options.nil? || options.empty?)
 
     items = Item.filter_by_price(items, options[:price]) if options[:price]

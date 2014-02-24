@@ -1,0 +1,16 @@
+<form action="<%= addresses_url %>" method="post" class="address">
+
+  <% if flash[:notice] %>
+    <label class="notice"><%= flash[:notice] %></label>
+  <% end %>
+
+  <% flash[:errors].try(:each) do |error| %>
+    <label class="error"><%= error %></label>
+  <% end %>
+
+  <%= render partial: "form_fields", locals: { address: @address } %>
+
+  <div class="submit">
+    <input type="Submit" value="Add new address">
+  </div>
+</form>

@@ -1,61 +1,47 @@
-<div>
-  <% @item.photos.each do |photo| %>
-    <img src="<%= photo.image.url(:thumb) %>">
+<section class="item-info group">
+  <section class="photos-list">
+    <ul>
+      <% @item.photos.each do |photo| %>
+        <li><img src="<%= photo.image.url(:thumb) %>"></li>
+      <% end %>
+    </ul>
+  </section>
+
+  <section class="photo">
+    <img src="<%= @photo.image.url(:full) %>">
+  </section>
+
+  <section class="item-details">
+    <p>Brand: <%= @item.brand.name %></p>
+    <h2><%= @item.name %></h2>
+    <% if @item_rating >= 1 %>
+      <p>Rating: <%= @item_rating %></p>
+    <% else %>
+      <p>Rating: This item hasn't been rated</p>
+    <% end %>
+    <p>Price: $<%= @item.price %></p>
+    <p><%= @item.description %></p>
+  </section>
+
+  <% if current_user %>
+    <section class="item-controls">
+      <%= render partial: "cart_items/new", locals: { item: @item } %>
+      <%= render partial: "wishlist_items/new", locals: { item: @item, wishlists: @wishlists } %>
+    </section>
   <% end %>
-</div>
+</section>
 
-<div>
-  <label><%= @item.name %></label>
-</div>
-<div>
-  <label>Price: $<%= @item.price %></label>
-</div>
-<div>
-  <label><%= @item.description %></label>
-</div>
-<div>
-  <label>Item Number: <%= @item.id %></label>
-</div>
-<div>
-  <label>Brand: <%= @item.brand.name %></label>
-</div>
-
-<div>
-  <% if @item_rating >= 1 %>
-    <label>Rating: <%= @item_rating %></label>
-  <% else %>
-    <label>Rating: This item hasn't been rated</label>
-  <% end %>
-</div>
-
-<div>
-  <label>Reviews</label>
+<section class="reviews">
+  <p>Reviews</p>
   <ul>
-  <% @item.reviews.includes(:user).each do |review| %>
-    <li>
-      <label>By: <%= review.user.full_name %></label>
-      <h4><%= review.title %></h4>
-      <%= review.body %>
-    </li>
-  <% end %>
+    <% @item.reviews.includes(:user).each do |review| %>
+      <li>
+        <h4>By: <%= review.user.full_name %></h4>
+        <h3><%= review.title %></h3>
+        <p><%= review.body %></p>
+      </li>
+    <% end %>
   </ul>
 
   <%= render partial: "reviews/new", locals: { item: @item } if current_user %>
-</div>
-
-<%= link_to "Back", items_url %>
-
-<% if current_user %>
-  <div>
-    <% if flash[:error] %>
-      <label class="error"><%= flash[:error] %></label>
-    <% end %>
-
-    <%if flash[:notice] %>
-      <label class="notice"><%= flash[:notice] %></label>
-    <% end %>
-
-    <%= render partial: "cart_items/new", locals: { item: @item } %>
-    <%= render partial: "wishlist_items/new", locals: { item: @item, wishlists: @wishlists } %>
-  </div>
-<% end %>
+</section>

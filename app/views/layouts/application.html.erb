@@ -8,31 +8,30 @@
 </head>
 <body>
 
-  <nav>
-    <ul>
-      <li><%= link_to "Home", items_url %></li>
-      <% if current_user %>
-        <li><%= link_to "Cart", cart_url(current_user.cart) %></li>
-        <li><%= link_to "Account", user_url(current_user) %></li>
-        <li><%= button_to "Sign Out", session_url, method: :delete %></li>
-      <% else %>
-        <li><%= link_to "Sign In", new_session_url %></li>
-      <% end %>
-    </ul>
-  </nav>
+  <nav class="top-nav-bar group">
+    <nav class="left-nav-links">
+      <ul class="group">
+        <li><%= link_to "Home", items_url %></li>
 
-  <% if current_user && current_user.admin? %>
-    <nav>
-      <%= link_to "Add New Item", new_item_url %>
-      <form action="<%= admin_edit_items_url %>" method="post">
-        <%= auth_token %>
-        <input type="hidden" name="_method" value="put">
-        <label for="item_id">Item ID</label>
-        <input type="text" name="item_id" id="item_id">
-        <input type="submit" value="Edit Item">
-      </form>
+        <% if current_user.try(:admin?) %>
+          <li><%= link_to "Add New Item", new_item_url %></li>
+          <li><%= render partial: "items/admin_search_form" %></li>
+        <% end %>
+      </ul>
     </nav>
-  <% end %>
+
+    <nav class="right-nav-links">
+      <ul class="group">
+        <% if current_user %>
+          <li><%= link_to "Cart", cart_url(current_user.cart) %></li>
+          <li><%= link_to "Account", user_url(current_user) %></li>
+          <li><%= button_to "Sign Out", session_url, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Sign In", new_session_url %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </nav>
 
 <%= yield %>
 

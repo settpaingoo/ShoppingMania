@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
     parse_filter_params if params[:filter]
 
     items = Item.filter(params[:filter])
-    @items = Item.sort(items, params[:sort]).page(params[:page]).per(10)
+    @items = Item.sort(items, params[:sort]).page(params[:page])
   end
 
   def new
@@ -26,8 +26,9 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
-    @wishlists = current_user.wishlists if current_user
+    @item = Item.includes(:photos).find(params[:id])
+    @photo = @item.photos.first
+    @wishlists = current_user.try(:wishlists)
     @item_rating = @item.average_rating
   end
 

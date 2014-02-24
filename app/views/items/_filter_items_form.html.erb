@@ -1,8 +1,9 @@
 <form action="<%= items_url %>" method="get">
-  <label>Refine your search</label>
-  <input type="submit" value="Search">
+  <div class="button">
+    <input type="submit" value="Search">
+  </div>
 
-  <div>
+  <div class="criteria">
     <label for="sort_criterium">Sort by</label>
     <select id="sort_criterium" name="sort">
       <option value="price_asc">Price: Low to High</option>
@@ -13,55 +14,61 @@
     </select>
   </div>
 
-  <div>
+  <div class="criteria input">
     <label for="filter_name">Name</label>
     <input type="text" name="filter[name]" id="filter_name" value="<%= filter[:name] %>"><br>
   </div>
 
-  <div>
-    <label>Price</label>
-    <label for="filter_min_price">Minimum</label>
-      <input type="number" name="filter[price][min]" id="filter_min_price"
-        value="<%= filter[:price][:min] if filter[:price] %>">
-    <label for="filter_max_price">Maximum</label>
-      <input type="number" name="filter[price][max]" id="filter_max_price"
-        value="<%= filter[:price][:max] if filter[:price] %>">
+  <div class="criteria choose">
+    <p>Price</p>
+    <label for="filter_min_price">$</label>
+    <input type="text" name="filter[price][min]" id="filter_min_price"
+      value="<%= filter[:price][:min] if filter[:price] %>">
+    <span> to </span>
+    <label for="filter_max_price">$</label>
+    <input type="text" name="filter[price][max]" id="filter_max_price"
+      value="<%= filter[:price][:max] if filter[:price] %>">
   </div>
 
-  <label>Brands</label>
-  <ul>
-  <% brands.each do |brand| %>
-    <li>
-      <input type="checkbox"
-        name="filter[brand_ids][]"
-        value="<%= brand.id %>"
-        id="brand_<%= brand.id %>"
-        <%= "checked" if filter[:brand_ids] && filter[:brand_ids].include?(brand.id) %>>
-      <label for="brand_<%= brand.id %>"><%= brand.name %></label>
-    </li>
-  <% end %>
-  </ul>
-
-  <label>Categories</label>
-  <ul>
-  <% categories.each do |category| %>
-    <li>
-      <input type="checkbox"
-        name="filter[category_ids][]"
-        value="<%= category.id %>"
-        id="category_<%= category.id %>"
-        <%= "checked" if filter[:category_ids] && filter[:category_ids].include?(category.id) %>>
-      <label for="category_<%= category.id %>"><%= category.name %></label>
-    </li>
-  <% end %>
-  </ul>
-
-  <label for="filter_rating">Minimum Rating</label>
-  <select id="filter_rating" name="filter[rating]">
-    <% 4.downto(2).each do |rating| %>
-      <option value="<%= rating %>" <%= "selected" if filter[:rating] == rating %>><%= rating %></option>
+  <div class="criteria">
+    <label>Brands</label>
+    <ul>
+    <% brands.each do |brand| %>
+      <li>
+        <input type="checkbox"
+          name="filter[brand_ids][]"
+          value="<%= brand.id %>"
+          id="brand_<%= brand.id %>"
+          <%= "checked" if filter[:brand_ids] && filter[:brand_ids].include?(brand.id) %>>
+        <label for="brand_<%= brand.id %>"><%= brand.name %></label>
+      </li>
     <% end %>
-    <option <%= "selected" unless filter[:rating]%>></option>
-  </select>
+    </ul>
+  </div>
 
+  <div class="criteria">
+    <label>Categories</label>
+    <ul>
+    <% categories.each do |category| %>
+      <li>
+        <input type="checkbox"
+          name="filter[category_ids][]"
+          value="<%= category.id %>"
+          id="category_<%= category.id %>"
+          <%= "checked" if filter[:category_ids] && filter[:category_ids].include?(category.id) %>>
+        <label for="category_<%= category.id %>"><%= category.name %></label>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+
+  <div class="criteria">
+    <label for="filter_rating">Minimum Rating</label>
+    <select id="filter_rating" name="filter[rating]">
+      <% 4.downto(2).each do |rating| %>
+        <option value="<%= rating %>" <%= "selected" if filter[:rating] == rating %>><%= rating %></option>
+      <% end %>
+      <option <%= "selected" unless filter[:rating]%>></option>
+    </select>
+  </div>
 </form>

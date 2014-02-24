@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   def send_password_token
     user = User.find_by_email(params[:user][:email])
     UserMailer.password_reset_email(user).deliver!
-    flash[:notice] = "Please check your email for password reset link"
+    flash[:notice] = "Please check your email for the link to reset your password"
     redirect_to new_session_url
   end
 

@@ -1,3 +1,103 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.user-form {
+  width: 250px;
+  padding: 50px 75px 25px 75px;
+  margin: 100px auto;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.user-form > h1 {
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+
+.input > label {
+  display: block;
+}
+
+.input > input {
+  border: 2px solid #000;
+  padding: 2px;
+  width: 200px;
+  margin: 5px 0;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.input > input:focus,
+.input > textarea:focus {
+  border-color: #0b0;
+}
+
+.submit > input {
+  position: relative;
+  color: #fff;
+  background: #08f;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+}
+
+.submit > input:hover {
+  background: #06f;
+}
+
+.submit > input:active {
+  top: 2px;
+  box-shadow: none;
+}
+
+.user-form a {
+  display: inline-block;
+}
+
+.new-user {
+  float: left;
+}
+
+.reset-password {
+  float: right;
+}
+
+.fb-login {
+  position: relative;
+  width: 155px;
+  color: #fff;
+  background: #08f;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+  padding: 10px;
+}
+
+.bot-nav-links {
+  margin: 25px 0;
+}
+
+#or {
+  margin: 0 20px;
+}
+
+.notice {
+  color: #0f0;
+}
+
+.error {
+  color: #f00;
+}
+
+.user-form > h3 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 20px 0;
+}

@@ -5,20 +5,15 @@
   </section>
 
   <section class="content">
-    <nav class="page-nav-bar group">
-      <%= paginate @items %>
-    </nav>
-
-    <ul class="group">
-    <% @items.each do |item| %>
-      <li>
-        <%= render partial: "item_summary", locals: { item: item } %>
-      </li>
-    <% end %>
-    </ul>
-
-    <nav class="page-nav-bar group">
-      <%= paginate @items %>
-    </nav>
+    <%= render partial: "items", locals: { items: @items } %>
   </section>
 </section>
+
+<script>
+// $(document).ready(function () {
+//   $(".filter-form").on("ajax:success", function(event, data){
+//     $content = $(".content");
+//     $content.html(data);
+//   });
+// });
+</script>

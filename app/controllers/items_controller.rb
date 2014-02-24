@@ -6,6 +6,12 @@ class ItemsController < ApplicationController
 
     items = Item.filter(params[:filter])
     @items = Item.sort(items, params[:sort]).page(params[:page])
+
+    if request.xhr?
+      render partial: "items", locals: { items: @items }, layout: false
+    else
+      render :index
+    end
   end
 
   def new
@@ -13,6 +19,7 @@ class ItemsController < ApplicationController
   end
 
   def create
+    # if cart_item already exists, update the quantity
     @item = Item.new(params[:item])
     @item.photos.new([params[:photos]])
 

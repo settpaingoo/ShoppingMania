@@ -35,8 +35,8 @@ class Item < ActiveRecord::Base
     min_price = options[:min] || 0
     max_price = options[:max] || 0
 
-    items = items.where("price >= ?", min_price) if min_price > 0
-    items = items.where("price <= ?", max_price) if max_price > 0
+    items = items.where("items.price >= ?", min_price) if min_price > 0
+    items = items.where("items.price <= ?", max_price) if max_price > 0
 
     items
   end
@@ -56,7 +56,7 @@ class Item < ActiveRecord::Base
   def self.filter_by_rating(items, min_rating)
     return items if min_rating > 5
 
-    items.joins(:reviews).group("items.id").having("AVG(reviews.rating) > ?", min_rating)
+    items.having("AVG(reviews.rating) >= ?", min_rating)
   end
 
   def self.sort(items, criterium)
@@ -66,11 +66,13 @@ class Item < ActiveRecord::Base
     when "price_desc"
       items.order("price").reverse_order
     when "recent"
-      items.order("created_at").reverse_order
+      items.order("items.created_at").reverse_order
     when "rating"
-      items.joins(:reviews).group("items.id").order("AVG(reviews.rating) DESC")
+      items.order("AVG(reviews.rating) DESC NULLS LAST")
     when "popularity"
-      items.joins(:order_items).group("items.id").order("SUM(order_items.quantity) DESC")
+      items.joins("LEFT OUTER JOIN order_items ON items.id = order_items.item_id")
+        .group("items.id")
+        .order("SUM(order_items.quantity) DESC NULLS LAST")
     else
       items
     end

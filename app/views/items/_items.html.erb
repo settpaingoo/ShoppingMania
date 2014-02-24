@@ -1,0 +1,19 @@
+<% if items.length == 0 %>
+  <p>There are no items to display</p>
+<% else %>
+  <nav class="page-nav-bar group">
+    <%= paginate items %>
+  </nav>
+
+  <ul class="group">
+  <% items.each do |item| %>
+    <li>
+      <%= render partial: "item_summary", locals: { item: item } %>
+    </li>
+  <% end %>
+  </ul>
+
+  <nav class="page-nav-bar group">
+    <%= paginate items %>
+  </nav>
+<% end %>

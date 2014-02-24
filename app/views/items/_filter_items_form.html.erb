@@ -1,4 +1,4 @@
-<form action="<%= items_url %>" method="get">
+<form action="<%= items_url %>" method="get" class="filter-form">
   <div class="button">
     <input type="submit" value="Search">
   </div>
@@ -6,11 +6,16 @@
   <div class="criteria">
     <label for="sort_criterium">Sort by</label>
     <select id="sort_criterium" name="sort">
-      <option value="price_asc">Price: Low to High</option>
-      <option value="price_desc">Price: High to Low</option>
-      <option value="recent">Most recent</option>
-      <option value="rating">Highest rating</option>
-      <option value="popularity">Most popular</option>
+      <option value="price_asc" <%= "selected" if params[:sort] == "price_asc" %>>
+        Price: Low to High</option>
+      <option value="price_desc" <%= "selected" if params[:sort] == "price_desc" %>>
+        Price: High to Low</option>
+      <option value="recent" <%= "selected" if params[:sort] == "recent" %>>
+        Most recent</option>
+      <option value="rating" <%= "selected" if params[:sort] == "rating" %>>
+        Highest rating</option>
+      <option value="popularity" <%= "selected" if params[:sort] == "popularity" %>>
+        Most popular</option>
     </select>
   </div>
 

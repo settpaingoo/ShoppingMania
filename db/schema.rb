@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140222005009) do
+ActiveRecord::Schema.define(:version => 20140225211344) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street",     :null => false
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20140222005009) do
   end
 
   add_index "order_items", ["item_id"], :name => "index_order_items_on_item_id"
+  add_index "order_items", ["order_id", "item_id"], :name => "index_order_items_on_order_id_and_item_id", :unique => true
   add_index "order_items", ["order_id"], :name => "index_order_items_on_order_id"
 
   create_table "orders", :force => true do |t|

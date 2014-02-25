@@ -12,7 +12,7 @@ module SessionsHelper
 
     @current_user = user
     current_cart = Cart.find(session[:cart_id])
-    current_cart.combine(user.cart)
+    user.cart.combine(current_cart)
 
     session[:session_token] = token.token_string
     session[:cart_id] = nil

@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   belongs_to :address
   has_many :order_items, inverse_of: :order, include: :item, dependent: :destroy
 
-  after_commit :switch_user_carts
+  after_commit :empty_cart
 
   def checkout(cart)
     Order.transaction do
@@ -31,8 +31,7 @@ class Order < ActiveRecord::Base
     order_items.map(&:subtotal).inject(:+)
   end
 
-  def switch_user_carts
-    user.cart.destroy
-    user.create_cart
+  def empty_cart
+    user.cart.cart_items.destroy_all
   end
 end

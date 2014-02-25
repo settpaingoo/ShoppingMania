@@ -2,7 +2,9 @@ class Cart < ActiveRecord::Base
   attr_accessible :user_id
 
   belongs_to :user
-  has_many :cart_items, dependent: :destroy, include: :item
+  has_many :user_items, class_name: "CartItem", dependent: :destroy, include: :item
+  has_many :cart_items, dependent: :destroy, include: :item, conditions: "quantity > 0"
+  has_many :saved_items, class_name: "CartItem", dependent: :destroy, include: :item, conditions: "quantity = 0"
 
   def add_item(item_id, quantity)
     item = Item.find(item_id)
@@ -27,24 +29,20 @@ class Cart < ActiveRecord::Base
   def combine(another_cart)
     return self if self.user_id && another_cart.user_id
 
-    if self.cart_items.length >= another_cart.cart_items.length
-      begin
-        Cart.transaction do
-          self.user_id ||= another_cart.user_id
-          self.save!
+    begin
+      Cart.transaction do
+        self.user_id ||= another_cart.user_id
+        self.save!
 
-          another_cart.cart_items.each do |cart_item|
-            self.add_item(cart_item.item_id, cart_item.quantity)
-          end
-
-          another_cart.destroy
+        another_cart.user_items.each do |user_item|
+          self.add_item(user_item.item_id, user_item.quantity)
         end
-      rescue
-      ensure
-        return self
+
+        another_cart.destroy
       end
-    else
-      another_cart.combine(self)
+    rescue
+    ensure
+      return self
     end
   end
 end

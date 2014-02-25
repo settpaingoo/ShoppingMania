@@ -27,6 +27,7 @@
           <td class="name">
             <img src="<%= cart_item.item.thumbnail %>">
             <%= link_to cart_item.item.name, item_url(cart_item.item) %>
+            <%= button_to "Save for later", cart_item_save_url(cart_item), method: :put %>
           </td>
           <td class="currency">$<%= cart_item.item.price %></td>
           <td class="quantity group"><%= render partial: "cart_items/form", locals: { cart_item: cart_item } %></td>

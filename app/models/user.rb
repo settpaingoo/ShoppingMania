@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :orders, include: :order_items, order: "created_at DESC"
   has_many :wishlists, include: :wishlist_items
   has_many :addresses
+  has_many :saved_items
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email);

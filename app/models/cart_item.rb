@@ -2,7 +2,7 @@ class CartItem < ActiveRecord::Base
   attr_accessible :cart_id, :item_id, :quantity
 
   validates :cart, :item, :quantity, presence: true
-  validates :quantity, numericality: { greater_than: 0, only_integer: true }
+  validates :quantity, numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :item_id, uniqueness: { scope: :cart_id }
 
   belongs_to :cart
@@ -29,8 +29,9 @@ class CartItem < ActiveRecord::Base
     return remove if new_quantity == 0
 
     difference = new_quantity - quantity
-    item = Item.find(item_id)
+    return self if difference == 0
 
+    item = Item.find(item_id)
     CartItem.transaction do
       if difference > 0
         item.remove_stock(difference)

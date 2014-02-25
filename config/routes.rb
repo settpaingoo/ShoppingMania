@@ -27,7 +27,10 @@ ShoppingMania::Application.routes.draw do
     resources :reviews, only: :create
   end
 
-  resources :cart_items, only: [:update, :destroy]
+  resources :cart_items, only: [:update, :destroy] do
+    put "save" => "cart_items#save_for_later"
+  end
+
   resources :wishlist_items, only: :destroy
   resources :photos, only: :destroy
 

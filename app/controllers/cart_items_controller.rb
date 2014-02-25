@@ -9,7 +9,7 @@ class CartItemsController < ApplicationController
       cart.add_item(params[:item_id], quantity)
       flash[:notice] = "Item has been added to your cart"
     rescue
-      flash[:error] = "Couldn't add item to the cart"
+      flash[:error] = "Could not add item to the cart"
     end
 
     if request.xhr?
@@ -47,6 +47,21 @@ class CartItemsController < ApplicationController
       render json: { total: cart_item.cart.total }
     else
       redirect_to cart_url(current_user.cart)
+    end
+  end
+
+  def save_for_later
+    cart_item = CartItem.includes(:item).find(params[:cart_id])
+    begin
+      CartItem.transaction do
+        cart_item.item.add_stock(cart_item.quantity)
+        cart_item.quantity = 0
+        cart_item.save!
+      end
+    rescue
+      flash[:error] = "Could not save the item"
+    ensure
+      redirect_to cart_url(cart_item.cart)
     end
   end
 

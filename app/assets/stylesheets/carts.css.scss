@@ -91,12 +91,27 @@ table .name > img {
 }
 
 .quantity input[type="submit"]:hover,
+.name input[type="submit"]:hover,
 .cart > a:hover {
   background: #06f;
 }
 
 .quantity input[type="submit"]:active,
+.name input[type="submit"]:active,
 .cart > a:active {
   top: 2px;
   box-shadow: none;
+}
+
+.name input[type="submit"] {
+  font-size: 14px;
+  position: relative;
+  color: #fff;
+  background: #08f;
+  padding: 5px 10px;
+  margin: 10px 0 0 0;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+  text-align: center;
 }

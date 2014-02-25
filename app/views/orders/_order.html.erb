@@ -1,0 +1,20 @@
+<div class="order group">
+  <section class="order-summary">
+    <p>Order Placed</p>
+    <h3><%= order.created_at.to_date %></h3>
+
+    <%= link_to "Order ##{order.id}", order_url(order) %>
+    <p>Total: $<%= order.total %></p>
+  </section>
+
+  <section class="order-items">
+    <ul>
+      <% order.order_items.each do |order_item| %>
+        <li class="group">
+          <img src="<%= order_item.item.thumbnail %>">
+          <%= link_to order_item.item.name, item_url(order_item.item) %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+</div>

@@ -13,7 +13,7 @@
  */
 
 /* --- RESET --- */
-html, body, form, nav, ul, li, label, h1, h2, h3, h4, div, p {
+html, body, form, nav, ul, li, label, h1, h2, h3, h4, div, p, section {
   padding: 0;
   border: 0;
   margin: 0;
@@ -76,6 +76,10 @@ a {
 
 .top-nav-bar li {
   float: left;
+}
+
+.top-nav-bar input[type="submit"] {
+  cursor: pointer;
 }
 
 .left-nav-links {

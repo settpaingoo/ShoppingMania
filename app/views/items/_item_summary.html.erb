@@ -1,6 +1,6 @@
 <div class="item">
   <a href="<%= item_url(item) %>">
-    <img src="<%= item.photos.first.image.url(:thumb) %>">
+    <img src="<%= item.thumbnail %>">
   </a>
   <div class="summary">
     <%= link_to item.name, item_url(item) %>

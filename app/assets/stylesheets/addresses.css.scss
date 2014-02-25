@@ -25,12 +25,12 @@
   box-shadow: 0 2px #000;
 }
 
-.address input:hover,
+.address input[type="submit"]:hover,
 .address a:hover {
   background: #06f;
 }
 
-.address input:active,
+.address input[type="submit"]:active,
 .address a:active {
   top: 2px;
   box-shadow: none;

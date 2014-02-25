@@ -1,0 +1,11 @@
+<section>
+  <h3><%= wishlist.name %></h3>
+  <ul>
+    <% wishlist.wishlist_items.each do |wishlist_item| %>
+      <li class="group">
+        <img src="<%= wishlist_item.item.thumbnail %>">
+        <%= link_to wishlist_item.item.name %>
+      </li>
+    <% end %>
+  </ul>
+</section>

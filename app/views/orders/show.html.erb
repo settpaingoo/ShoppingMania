@@ -1,0 +1,39 @@
+<div class="order-detail group">
+  <section class="order-summary">
+    <strong>Shipping Address:</strong>
+    <% address = @order.address %>
+    <p><%= address.user.full_name %></p>
+    <p><%= address.street %></p>
+    <p><%= address.city %>, <%= address.state %> <%= address.zipcode %></p>
+  </section>
+
+  <section class="order-item-detail">
+    <table>
+      <thead>
+        <th class="name">Name</th>
+        <th class="currency">Price</th>
+        <th class="quantity">Quantity</th>
+        <th class="currency">Total</th>
+      </thead>
+
+      <tfoot>
+        <td colspan="3" class="currency">Grand Total:</td>
+        <td class="currency">$<%= @order.total %></td>
+      </tfoot>
+
+      <tbody>
+        <% @order.order_items.each do |order_item| %>
+          <tr>
+            <td class="name">
+              <img src="<%= order_item.item.thumbnail %>">
+              <%= link_to order_item.item.name %>
+            </td>
+            <td class="currency">$<%= order_item.price %></td>
+            <td class="quantity"><%= order_item.quantity %></td>
+            <td class="currency">$<%= order_item.subtotal %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def index
-    @orders = current_user.orders
+    @orders = current_user.orders.includes(:address)
   end
 
   def new
@@ -22,6 +22,15 @@ class OrdersController < ApplicationController
     rescue
       flash[:error] = "Something went wrong with checkout process"
       redirect_to cart_url(cart)
+    end
+  end
+
+  def show
+    @order = current_user.orders.find(params[:id])
+    if @order
+      render :show
+    else
+      redirect_to orders_url
     end
   end
 end

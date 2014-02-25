@@ -1,3 +1,82 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.orders {
+  width: 900px;
+  margin: 100px auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.orders > p {
+  display: inline-block;
+  margin: 10px;
+}
+
+.order {
+  border: 1px solid #ccc;
+}
+
+.order-summary {
+  width: 250px;
+  float: left;
+  padding: 10px;
+}
+
+.order-summary > h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 0 15px 0;
+}
+
+.order-summary > a {
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.order-items {
+  float: left;
+  padding: 10px;
+  border-left: 1px solid #ccc;
+}
+
+.order-items img {
+  width: 50px;
+  height: 50px;
+  margin: 0 10px 10px 0;
+  float: left;
+}
+
+.order-items a {
+  display: inline-block;
+  float: left;
+  margin: 5px 0;
+}
+
+.order-detail {
+  width: 900px;
+  margin: 100px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.order-summary > p {
+  margin: 3px 0;
+}
+
+.order-item-detail {
+  float: left;
+  padding: 0 0 0 20px;
+  border-left: 2px solid #ccc;
+}
+
+.order-item-detail > table {
+  width: 600px;
+}
+
+.order-item-detail > table .quantity {
+  width: 75px;
+  text-align: right;
+}

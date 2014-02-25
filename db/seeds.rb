@@ -46,7 +46,7 @@ items = []
 ITEMS_COUNT.times do
   items << Item.new(
     name: Faker::Commerce.product_name,
-    price: rand(200),
+    price: rand(10..300),
     stock: rand(40),
     brand_id: rand(1..brand_count),
     category_id: rand(1..category_count)

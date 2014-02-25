@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :address
-  has_many :order_items, inverse_of: :order, include: :item
+  has_many :order_items, inverse_of: :order, include: :item, dependent: :destroy
 
   after_commit :switch_user_carts
 

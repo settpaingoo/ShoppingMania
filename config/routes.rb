@@ -10,7 +10,7 @@ ShoppingMania::Application.routes.draw do
       post "reset_password" => "users#send_password_token"
       put "reset_password" => "users#update_password"
 
-      resources :orders, only: [:index, :new, :create]
+      resources :orders, only: [:index, :new, :create, :show]
       resources :wishlists, only: [:index, :create]
       resources :carts, only: :show
       resources :addresses, only: [:index, :create, :edit, :update, :destroy]

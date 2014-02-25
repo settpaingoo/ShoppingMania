@@ -1,3 +1,102 @@
 // Place all the styles related to the Carts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+table, thead, tbody, tfoot, th, td {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  border-collapse: collapse;
+}
+
+.cart {
+  width: 900px;
+  margin: 100px auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.cart > table {
+  width: 900px;
+}
+
+table thead {
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 15px;
+}
+
+table tr {
+  border-bottom: 2px solid #ccc;
+}
+
+table .name {
+  width: 300px;
+  text-align: left;
+}
+
+table .currency {
+  width: 100px;
+  text-align: right;
+}
+
+table .quantity {
+  width: 300px;
+}
+
+table .name > img {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin: 0 15px 0 0;
+}
+
+.quantity > form {
+  float: right;
+}
+
+.quantity input[type="submit"] {
+  font-size: 14px;
+  position: relative;
+  color: #fff;
+  background: #08f;
+  padding: 5px;
+  margin: 0 0 5px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+  text-align: center;
+  width: 125px;
+}
+
+.quantity input[type="number"] {
+  width: 75px;
+}
+
+.cart > a {
+  color: #fff;
+  background: #08f;
+  padding: 10px 20px;
+  border-radius: 5px;
+  float: right;
+  margin: 15px 0 0 0;
+  position: relative;
+  box-shadow: 0 2px #000;
+}
+
+.quantity input[type="submit"]:hover,
+.cart > a:hover {
+  background: #06f;
+}
+
+.quantity input[type="submit"]:active,
+.cart > a:active {
+  top: 2px;
+  box-shadow: none;
+};

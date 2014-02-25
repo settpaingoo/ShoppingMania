@@ -5,5 +5,5 @@ class WishlistItem < ActiveRecord::Base
   validates :item_id, uniqueness: { scope: :wishlist_id }
 
   belongs_to :wishlist
-  belongs_to :item
+  belongs_to :item, include: :photos
 end

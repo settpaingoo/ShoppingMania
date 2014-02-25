@@ -6,7 +6,7 @@ class CartItem < ActiveRecord::Base
   validates :item_id, uniqueness: { scope: :cart_id }
 
   belongs_to :cart
-  belongs_to :item
+  belongs_to :item, include: :photos
 
   #after destroy callback
   def remove

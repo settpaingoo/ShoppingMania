@@ -1,20 +1,9 @@
-<label>Wishlists</label>
-<ul>
+<ul class="wishlists">
   <% @wishlists.each do |wishlist| %>
-  <li><%= wishlist.name %></li>
-  <ul>
-    <% wishlist.wishlist_items.each do |wl_item| %>
-    <li><%= wl_item.item.name %></li>
-    <% end %>
-  </ul>
+    <li>
+      <%= render partial: "wishlist", locals: { wishlist: wishlist } %>
+    </li>
   <% end %>
+
+  <li><%= render partial: "form" %></li>
 </ul>
-
-<form action="<%= wishlists_url %>" method="post">
-  <%= auth_token %>
-
-  <label for="wishlist_name">Name</label>
-  <input type="text" id="wishlist_name" name="wishlist[name]">
-
-  <input type="submit" value="Create new wishlist">
-</form>

@@ -4,7 +4,7 @@
     <% wishlist.wishlist_items.each do |wishlist_item| %>
       <li class="group">
         <img src="<%= wishlist_item.item.thumbnail %>">
-        <%= link_to wishlist_item.item.name %>
+        <%= link_to wishlist_item.item.name, item_url(wishlist_item.item) %>
       </li>
     <% end %>
   </ul>

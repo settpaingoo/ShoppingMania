@@ -2,10 +2,12 @@
   <label class="error"><%= error %></label>
 <% end %>
 
-<form action="<%= address_url(@address) %>" method="post">
+<form action="<%= address_url(@address) %>" method="post" class="user-form">
   <input type="hidden" name="_method" value="put">
 
   <%= render partial: "form_fields", locals: { address: @address } %>
 
-  <input type="submit" value="Update address">
+  <div class="submit">
+    <input type="submit" value="Update address">
+  </div>
 </form>

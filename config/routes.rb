@@ -10,10 +10,10 @@ ShoppingMania::Application.routes.draw do
       post "reset_password" => "users#send_password_token"
       put "reset_password" => "users#update_password"
 
+      resources :addresses, only: [:index, :create, :edit, :update, :destroy]
+      resources :carts, only: :show
       resources :orders, only: [:index, :new, :create, :show]
       resources :wishlists, only: [:index, :create]
-      resources :carts, only: :show
-      resources :addresses, only: [:index, :create, :edit, :update, :destroy]
     end
   end
 
@@ -21,15 +21,16 @@ ShoppingMania::Application.routes.draw do
     collection do
       put "admin/edit" => "items#admin_shortcut"
     end
-  end
 
-  resources :items do
-    resources :cart_items, only: :create
-    resources :wishlist_items, only: :create
-    resources :reviews, only: :create
+    member do
+      resources :cart_items, only: :create
+      resources :wishlist_items, only: :create
+      resources :reviews, only: :create
+    end
   end
 
   resources :cart_items, only: [:update, :destroy]
+  resources :wishlist_items, only: :destroy
   resources :photos, only: :destroy
 
   root to: "items#index"

@@ -1,9 +1,9 @@
-<form action="<%= item_cart_items_url(item) %>" method="post" data-remote="true">
+<form action="<%= item_cart_items_url(item) %>" method="post">
   <%= auth_token %>
 
   <div class="choose">
     <label for="cart_item_quantity">Quantity</label>
-    <input type="number" id="cart_item_quantity" name="cart_item[quantity]">
+    <input type="number" id="cart_item_quantity" name="cart_item[quantity]" value="1">
   </div>
 
   <div class="button">

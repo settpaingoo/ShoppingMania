@@ -5,11 +5,16 @@
   <div class="summary">
     <%= link_to item.name, item_url(item) %>
     <p>Price: $<%= item.price %></p>
+
     <% rating = item.rating.to_f.round(1) %>
     <% if rating >= 1%>
-      <p>Rating: <%= item.rating.to_f.round(1) %></p>
+      <p>Rating: <%= rating %></p>
     <% else %>
       <p>Rating: Not rated yet</p>
+    <% end %>
+
+    <% if item.stock == 0 %>
+      <p class="error">Out of Stock</p>
     <% end %>
   </div>
 </div>

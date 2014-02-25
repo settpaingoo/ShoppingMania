@@ -20,7 +20,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    # if cart_item already exists, update the quantity
     @item = Item.new(params[:item])
     photo_params = params[:photos].values
     @item.photos.new(photo_params)

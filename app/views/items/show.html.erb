@@ -25,6 +25,9 @@
     <% end %>
     <p>Price: $<%= @item.price %></p>
     <p><%= @item.description %></p>
+    <% if @item.stock == 0 %>
+      <p class="error">Out of Stock</p>
+    <% end %>
   </section>
 
   <% if current_user %>

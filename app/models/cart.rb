@@ -6,10 +6,17 @@ class Cart < ActiveRecord::Base
 
   def add_item(item_id, quantity)
     item = Item.find(item_id)
-    Cart.transaction do
-      item.remove_stock(quantity)
-      cart_item = self.cart_items.new(item_id: item_id, quantity: quantity)
-      self.save!
+    cart_item = CartItem.where("cart_id = ? AND item_id = ?", self.id, item_id).first
+
+    if cart_item
+      new_quantity = cart_item.quantity + quantity
+      cart_item.modify(new_quantity)
+    else
+      Cart.transaction do
+        item.remove_stock(quantity)
+        cart_item = self.cart_items.new(item_id: item_id, quantity: quantity)
+        self.save!
+      end
     end
   end
 

@@ -41,5 +41,7 @@ class CartItem < ActiveRecord::Base
       self.quantity = new_quantity
       self.save!
     end
+
+    self
   end
 end

@@ -13,11 +13,17 @@ class WishlistItemsController < ApplicationController
     end
 
     if request.xhr?
-      render partial: "items/status_messages", layout: false
+      render json: { status_messages: status_messages }
       clear_flash
     else
       redirect_to item_url(params[:item_id])
     end
+  end
+
+  def destroy
+    wishlist_item = Wishlist.find(params[:id])
+    wishlist_item.destroy
+    redirect_to wishlists_url
   end
 
 end

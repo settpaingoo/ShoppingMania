@@ -60,7 +60,7 @@
 <script>
 $(document).ready(function () {
   $(".item-controls").on("ajax:success", "form", function(event, data){
-    $(".status-messages").html(data);
+    $(".status-messages").html(data["status_messages"]);
     this.reset();
   });
 

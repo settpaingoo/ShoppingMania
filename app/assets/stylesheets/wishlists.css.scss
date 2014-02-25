@@ -19,16 +19,44 @@
 
 .wishlists img {
   float: left;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
 }
 
 .wishlists a {
-  float: left;
   margin: 10px 5px;
+  display: inline-block;
+  padding: 5px;
+  margin: 0;
 }
 
 .wishlists section li {
   display: block;
-  margin: 5px 0;
+  margin: 10px 0;
+}
+
+.wishlist-item input[type="submit"] {
+  font-size: 14px;
+  position: relative;
+  color: #fff;
+  background: #08f;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px #000;
+  text-align: center;
+}
+
+.wishlist-item input[type="submit"]:hover {
+  background: #06f;
+}
+
+.wishlist-item input[type="submit"]:active {
+  top: 2px;
+  box-shadow: none;
+}
+
+.wishlist-item form {
+  float: left;
 }

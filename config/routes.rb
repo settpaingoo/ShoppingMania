@@ -13,7 +13,7 @@ ShoppingMania::Application.routes.draw do
       resources :addresses, only: [:index, :create, :edit, :update, :destroy]
       resources :carts, only: :show
       resources :orders, only: [:index, :new, :create, :show]
-      resources :wishlists, only: [:index, :create]
+      resources :wishlists, only: [:index, :create, :destroy]
     end
   end
 
@@ -22,11 +22,9 @@ ShoppingMania::Application.routes.draw do
       put "admin/edit" => "items#admin_shortcut"
     end
 
-    member do
-      resources :cart_items, only: :create
-      resources :wishlist_items, only: :create
-      resources :reviews, only: :create
-    end
+    resources :cart_items, only: :create
+    resources :wishlist_items, only: :create
+    resources :reviews, only: :create
   end
 
   resources :cart_items, only: [:update, :destroy]

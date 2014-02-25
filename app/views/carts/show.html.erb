@@ -1,41 +1,63 @@
 <section class="cart group">
-  <% if flash[:error] %>
-    <p class="error"><%= flash[:error] %></p>
-  <% end %>
+  <div class="status-messages">
+    <%= status_messages %>
+  </div>
 
-  <%if flash[:notice] %>
-    <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
+  <% if @cart.cart_items.empty? %>
+    <p>There are no items in your cart.</p>
+  <% else %>
+    <table>
+      <thead>
+        <th class="name">Name</th>
+        <th class="currency">Price</th>
+        <th class="quantity">Quantity</th>
+        <th class="currency">Total</th>
+      </thead>
 
-  <table>
-    <thead>
-      <th class="name">Name</th>
-      <th class="currency">Price</th>
-      <th class="quantity">Quantity</th>
-      <th class="currency">Total</th>
-    </thead>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="currency">Grand Total:</td>
+          <td class="currency total">$<%= @cart.total %></td>
+        </tr>
+      </tfoot>
 
-    <tfoot>
-      <td colspan="3" class="currency">Grand Total:</td>
-      <td class="currency">$<%= @cart.total %></td>
-    </tfoot>
+      <tbody>
+        <% @cart.cart_items.each do |cart_item| %>
+        <tr>
+          <td class="name">
+            <img src="<%= cart_item.item.thumbnail %>">
+            <%= link_to cart_item.item.name, item_url(cart_item.item) %>
+          </td>
+          <td class="currency">$<%= cart_item.item.price %></td>
+          <td class="quantity group"><%= render partial: "cart_items/form", locals: { cart_item: cart_item } %></td>
+          <td class="currency subtotal">$<%= cart_item.subtotal%></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-    <tbody>
-      <% @cart.cart_items.each do |cart_item| %>
-      <tr>
-        <td class="name">
-          <img src="<%= cart_item.item.thumbnail %>">
-          <%= link_to cart_item.item.name, item_url(cart_item.item) %>
-        </td>
-        <td class="currency">$<%= cart_item.item.price %></td>
-        <td class="quantity group"><%= render partial: "cart_items/form", locals: { cart_item: cart_item } %></td>
-        <td class="currency">$<%= cart_item.subtotal%></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <% unless @cart.cart_items.empty? %>
     <%= link_to "Checkout", new_order_url %>
   <% end %>
 </section>
+
+<script>
+$(document).ready(function () {
+  $(".update").on("ajax:success", function(event, data){
+    $(".status-messages").html(data["status_messages"]);
+
+    var $subtotal = $(event.target).closest("td").siblings(".subtotal");
+    $subtotal.html("$" + data["subtotal"]);
+
+    $(".total").html("$" + data["total"]);
+  });
+
+  $(".remove").on("ajax:success", function(event, data){
+    if (data["total"] > 0) {
+      $(event.target).closest("tr").remove();
+      $(".total").html("$" + data["total"]);
+    } else {
+      location.reload();
+    }
+  });
+});
+</script>

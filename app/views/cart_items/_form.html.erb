@@ -1,4 +1,4 @@
-<form action="<%= cart_item_url(cart_item) %>" method="post">
+<form action="<%= cart_item_url(cart_item) %>" method="post" class="update" data-remote="true">
   <input type="hidden" name="_method" value="put">
   <%= auth_token %>
 
@@ -7,4 +7,5 @@
 
   <input type="submit" value="Update Quantity">
 </form><br>
-<%= button_to "Remove Item", cart_item_url(cart_item), method: :delete%>
+
+<%= button_to "Remove Item", cart_item_url(cart_item), remote: true, method: :delete, form_class: "remove"%>

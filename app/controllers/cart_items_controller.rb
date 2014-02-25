@@ -10,13 +10,13 @@ class CartItemsController < ApplicationController
       flash[:notice] = "Item has been added to your cart"
     rescue
       flash[:error] = "Couldn't add item to the cart"
-    ensure
-      if request.xhr?
-        render partial: "items/status_messages", layout: false
-        clear_flash
-      else
-        redirect_to item_url(params[:item_id])
-      end
+    end
+
+    if request.xhr?
+      render json: { status_messages: status_messages }
+      clear_flash
+    else
+      redirect_to cart_url(cart)
     end
   end
 
@@ -25,19 +25,29 @@ class CartItemsController < ApplicationController
     new_quantity = params[:cart_item][:quantity].to_i
 
     begin
-      cart_item.modify(new_quantity)
+      updated_cart_item = cart_item.modify(new_quantity)
       flash[:notice] = "Successfully updated"
     rescue
       flash[:error] = "Couldn't update the item"
     end
 
-    redirect_to cart_url(current_user.cart)
+    if request.xhr?
+      render json: { total: cart_item.cart.total, subtotal: updated_cart_item.subtotal, status_messages: status_messages }
+      clear_flash
+    else
+      redirect_to cart_url(current_user.cart)
+    end
   end
 
   def destroy
     cart_item = CartItem.find(params[:id])
     cart_item.remove
-    redirect_to cart_url(current_user.cart)
+
+    if request.xhr?
+      render json: { total: cart_item.cart.total }
+    else
+      redirect_to cart_url(current_user.cart)
+    end
   end
 
 end

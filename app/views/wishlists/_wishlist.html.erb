@@ -1,11 +1,25 @@
-<section>
+<section class="wishlist-item">
   <h3><%= wishlist.name %></h3>
   <ul>
-    <% wishlist.wishlist_items.each do |wishlist_item| %>
-      <li class="group">
-        <img src="<%= wishlist_item.item.thumbnail %>">
-        <%= link_to wishlist_item.item.name, item_url(wishlist_item.item) %>
-      </li>
+    <% if wishlist.wishlist_items.empty? %>
+      <p>There are no items in this wishlist.</p>
+    <% else %>
+      <% wishlist.wishlist_items.each do |wishlist_item| %>
+        <li class="group">
+          <img src="<%= wishlist_item.item.thumbnail %>">
+          <%= link_to wishlist_item.item.name, item_url(wishlist_item.item) %>
+          <div class="group">
+            <form action="<%= item_cart_items_url(wishlist_item.item) %>" method="post">
+              <%= auth_token %>
+              <input type="hidden" name="cart_item[quantity]" value="1">
+
+              <input type="submit" value="Move to Cart">
+            </form>
+            <%= button_to "Delete", wishlist_item_url(wishlist_item), method: :delete %>
+          </div>
+        </li>
+      <% end %>
+      <%= button_to "Delete Wishlist", wishlist_url(wishlist), method: :delete %>
     <% end %>
   </ul>
 </section>

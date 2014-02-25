@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_filter :require_current_user!
 
   def create
     @review = Review.new(params[:review])

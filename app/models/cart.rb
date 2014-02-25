@@ -23,4 +23,28 @@ class Cart < ActiveRecord::Base
   def total
     cart_items.map(&:subtotal).inject(:+)
   end
+
+  def combine(another_cart)
+    return self if self.user_id && another_cart.user_id
+
+    if self.cart_items.length >= another_cart.cart_items.length
+      begin
+        Cart.transaction do
+          self.user_id ||= another_cart.user_id
+          self.save!
+
+          another_cart.cart_items.each do |cart_item|
+            self.add_item(cart_item.item_id, cart_item.quantity)
+          end
+
+          another_cart.destroy
+        end
+      rescue
+      ensure
+        return self
+      end
+    else
+      another_cart.combine(self)
+    end
+  end
 end

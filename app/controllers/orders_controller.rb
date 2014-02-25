@@ -1,9 +1,12 @@
 class OrdersController < ApplicationController
+  before_filter :require_current_user!
+  before_filter :avoid_empty_orders, only: [:new, :create]
 
   def index
     @orders = current_user.orders.includes(:address)
   end
 
+  #add styles to orders/new
   def new
     @cart = current_user.cart
     @addresses = current_user.addresses

@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
+  before_filter :ensure_cart
 
   def show
-    @cart = current_user.cart
+    @cart =  get_cart
   end
 end

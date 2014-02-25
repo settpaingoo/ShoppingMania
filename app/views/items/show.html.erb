@@ -30,16 +30,16 @@
     <% end %>
   </section>
 
-  <% if current_user %>
-    <section class="item-controls">
-      <div class="status-messages">
-        <%= render partial: "status_messages" %>
-      </div>
+  <section class="item-controls">
+    <div class="status-messages">
+      <%= render partial: "status_messages" %>
+    </div>
 
-      <%= render partial: "cart_items/new", locals: { item: @item } %>
+    <%= render partial: "cart_items/new", locals: { item: @item } %>
+    <% if current_user %>
       <%= render partial: "wishlist_items/new", locals: { item: @item, wishlists: @wishlists } %>
-    </section>
-  <% end %>
+    <% end %>
+  </section>
 </section>
 
 <section class="reviews">

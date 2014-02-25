@@ -1,4 +1,5 @@
 class AddressesController < ApplicationController
+  before_filter :require_current_user!
 
   def index
     @addresses = current_user.addresses

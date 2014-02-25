@@ -1,3 +1,4 @@
+#make sure to create carts for users
 USERS_COUNT = 10
 users = []
 USERS_COUNT.times do |i|

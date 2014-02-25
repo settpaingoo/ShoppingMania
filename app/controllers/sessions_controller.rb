@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  before_filter :require_current_user!, only: [:destroy]
+  before_filter :require_current_user!, only: :destroy
+  before_filter :ensure_cart, only: :new
 
   def new
   end
@@ -17,7 +18,12 @@ class SessionsController < ApplicationController
 
     if user && user.activated?
       sign_in(user)
-      redirect_to root_url
+      if session[:request_uri]
+        redirect_to session[:request_uri]
+        session[:request_uri] = nil
+      else
+        redirect_to root_url
+      end
     else
       if user.nil?
         flash[:error] = "Incorrect email/password combination"

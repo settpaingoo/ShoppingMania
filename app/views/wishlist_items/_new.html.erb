@@ -4,7 +4,7 @@
   <div class="choose">
     <label for="wishlist_id">Wishlist</label>
     <select id="wishlist_id" name="wishlist[id]">
-      <% wishlists.each do |wishlist| %>
+      <% wishlists.try(:each) do |wishlist| %>
       <option value="<%= wishlist.id %>"><%= wishlist.name %></option>
       <% end %>
     </select>

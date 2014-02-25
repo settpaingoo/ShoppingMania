@@ -4,11 +4,26 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def require_current_user!
-    redirect_to new_session_url unless current_user
+    unless current_user
+      session[:request_uri] = request.env["REQUEST_URI"]
+      redirect_to new_session_url
+    end
   end
 
   def require_admin!
     redirect_to root_url unless current_user.admin?
+  end
+
+  def ensure_cart
+    unless (session[:cart_id] || current_user)
+      cart = Cart.create
+      session[:cart_id] = cart.id
+    end
+  end
+
+  def avoid_empty_orders
+    cart = current_user.cart
+    redirect_to cart_url(cart) if cart.cart_items.empty?
   end
 
   def filter_user_password_params(params)

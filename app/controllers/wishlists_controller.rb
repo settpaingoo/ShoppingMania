@@ -1,4 +1,5 @@
 class WishlistsController < ApplicationController
+  before_filter :require_current_user!
 
   def index
     @wishlists = current_user.wishlists

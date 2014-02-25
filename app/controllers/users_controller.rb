@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_current_user!, only: [:show, :edit, :update]
+  before_filter :ensure_cart, only: [:new, :activate]
 
   def new
     @user = User.new
@@ -7,6 +8,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.cart = Cart.find(session[:cart_id])
+
     if @user.save
       UserMailer.welcome_email(@user).deliver!
       flash[:notice] = "Please check your email to activate your account"

@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_filter :require_admin!, except: [:index, :show]
+  before_filter :ensure_cart, only: [:index, :show]
 
   #chosen js plug-in for searchbox
   def index

@@ -1,4 +1,6 @@
 class WishlistItemsController < ApplicationController
+  before_filter :require_current_user!
+
   def create
     wishlist_item = WishlistItem.new(
       wishlist_id: params[:wishlist].try(:[], :id),
@@ -17,4 +19,5 @@ class WishlistItemsController < ApplicationController
       redirect_to item_url(params[:item_id])
     end
   end
+
 end

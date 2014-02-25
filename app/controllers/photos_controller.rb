@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_filter :require_admin!
 
   def destroy
     photo = Photo.find(params[:id])

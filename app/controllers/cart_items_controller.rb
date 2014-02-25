@@ -1,7 +1,8 @@
 class CartItemsController < ApplicationController
+  before_filter :ensure_cart
 
   def create
-    cart = current_user.cart
+    cart = get_cart
     quantity = params[:cart_item][:quantity].to_i
 
     begin

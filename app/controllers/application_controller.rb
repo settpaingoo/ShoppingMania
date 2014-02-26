@@ -15,13 +15,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user.admin?
   end
 
-  def ensure_cart
-    unless (session[:cart_id] || current_user)
-      cart = Cart.create
-      session[:cart_id] = cart.id
-    end
-  end
-
   def avoid_empty_orders
     cart = current_user.cart
     redirect_to cart_url(cart) if cart.cart_items.empty?

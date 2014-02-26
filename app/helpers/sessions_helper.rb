@@ -8,24 +8,19 @@ module SessionsHelper
   end
 
   def sign_in(user)
-    token = Token.create(user_id: user.id)
-
     @current_user = user
-    current_cart = Cart.find(session[:cart_id])
+    current_cart = Cart.build_temporary_cart(session[:cart_item_params])
     user.cart.combine(current_cart)
 
+    token = Token.create(user_id: user.id)
     session[:session_token] = token.token_string
-    session[:cart_id] = nil
+    session[:cart_item_params] = nil
   end
 
   def sign_out
     token = Token.find_by_token_string(session[:session_token])
     token.destroy
     session[:session_token] = nil
-  end
-
-  def get_cart
-    current_user ? current_user.cart : Cart.find(session[:cart_id])
   end
 
 end

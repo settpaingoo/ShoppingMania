@@ -1,15 +1,21 @@
 class CartItemsController < ApplicationController
-  before_filter :ensure_cart
 
   def create
-    cart = get_cart
-    quantity = params[:cart_item][:quantity].to_i
+    quantity = params[:cart_item][:quantity]
 
-    begin
-      cart.add_item(params[:item_id], quantity)
+    if current_user
+      cart = current_user.cart
+      begin
+        cart.add_item(params[:item_id], quantity.to_i)
+        flash[:notice] = "Item has been added to your cart"
+      rescue
+        flash[:error] = "Could not add item to the cart"
+      end
+    else
+      session[:cart_item_params] ||= {}
+      session[:cart_item_params][params[:item_id].to_i] = quantity
       flash[:notice] = "Item has been added to your cart"
-    rescue
-      flash[:error] = "Could not add item to the cart"
+      cart = "dummy"
     end
 
     if request.xhr?
@@ -21,18 +27,25 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    cart_item = CartItem.find(params[:id])
-    new_quantity = params[:cart_item][:quantity].to_i
+    new_quantity = params[:cart_item][:quantity]
 
-    begin
-      updated_cart_item = cart_item.modify(new_quantity)
+    if current_user
+      cart_item = CartItem.find(params[:id])
+      begin
+        updated_cart_item = cart_item.modify(new_quantity.to_i)
+        flash[:notice] = "Successfully updated"
+      rescue
+        flash[:error] = "Couldn't update the item"
+      end
+    else
+      session[:cart_item_params][params[:id].to_i] = new_quantity
+      updated_cart_item = CartItem.new(item_id: params[:id], quantity: new_quantity.to_i)
+      updated_cart_item.cart = Cart.build_temporary_cart(session[:cart_item_params])
       flash[:notice] = "Successfully updated"
-    rescue
-      flash[:error] = "Couldn't update the item"
     end
 
     if request.xhr?
-      render json: { total: cart_item.cart.total, subtotal: updated_cart_item.subtotal, status_messages: status_messages }
+      render json: { total: updated_cart_item.cart.total, subtotal: updated_cart_item.subtotal, status_messages: status_messages }
       clear_flash
     else
       redirect_to cart_url(current_user.cart)
@@ -40,11 +53,17 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    cart_item = CartItem.find(params[:id])
-    cart_item.remove
+    if current_user
+      cart_item = CartItem.find(params[:id])
+      cart_item.remove
+      cart = cart_item.cart
+    else
+      session[:cart_item_params].delete(params[:id].to_i)
+      cart = Cart.build_temporary_cart(session[:cart_item_params])
+    end
 
     if request.xhr?
-      render json: { total: cart_item.cart.total }
+      render json: { total: cart.total }
     else
       redirect_to cart_url(current_user.cart)
     end

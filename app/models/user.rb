@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   has_many :tokens
-  has_one :cart
+  has_one :cart, inverse_of: :user
   has_many :orders, include: :order_items, order: "created_at DESC"
   has_many :wishlists, include: :wishlist_items
   has_many :addresses

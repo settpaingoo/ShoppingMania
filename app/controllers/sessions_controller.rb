@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   before_filter :require_current_user!, only: :destroy
-  before_filter :ensure_cart, only: :new
 
   def new
   end
@@ -16,7 +15,7 @@ class SessionsController < ApplicationController
       )
     end
 
-    if user && user.activated?
+    if user.try(:activated?)
       sign_in(user)
       if session[:request_uri]
         redirect_to session[:request_uri]

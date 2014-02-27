@@ -24,10 +24,6 @@ describe OrderItem do
     it { should validate_numericality_of(:quantity).is_greater_than(0) }
   end
 
-  context "validates that same item is not duplicated in each order" do
-    it { should validate_uniqueness_of(:item_id).scoped_to(:order_id)}
-  end
-
   context "has associations" do
     it { should belong_to(:order) }
     it { should belong_to(:item) }

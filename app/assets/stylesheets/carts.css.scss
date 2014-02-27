@@ -50,7 +50,7 @@ table .quantity {
   width: 300px;
 }
 
-table .name > img {
+.cart img {
   width: 50px;
   height: 50px;
   float: left;
@@ -79,7 +79,7 @@ table .name > img {
   width: 75px;
 }
 
-.cart > a {
+.button > a {
   color: #fff;
   background: #08f;
   padding: 10px 20px;
@@ -92,18 +92,21 @@ table .name > img {
 
 .quantity input[type="submit"]:hover,
 .name input[type="submit"]:hover,
-.cart > a:hover {
+.button > a:hover,
+.saved input[type="submit"]:hover {
   background: #06f;
 }
 
 .quantity input[type="submit"]:active,
 .name input[type="submit"]:active,
-.cart > a:active {
+.button > a:active,
+.saved input[type="submit"]:active {
   top: 2px;
   box-shadow: none;
 }
 
-.name input[type="submit"] {
+.name input[type="submit"],
+.saved input[type="submit"] {
   font-size: 14px;
   position: relative;
   color: #fff;
@@ -114,4 +117,32 @@ table .name > img {
   cursor: pointer;
   box-shadow: 0 2px #000;
   text-align: center;
+}
+
+.saved li {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 5px;
+  float: left;
+}
+
+.saved li > form {
+  float: left;
+}
+
+.saved p {
+  line-height: 2.0;
+}
+
+.saved form {
+  float: left;
+  margin: 5px;
+}
+
+.cart h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px;
 }

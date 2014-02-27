@@ -1,4 +1,4 @@
-<form action="<%= cart_item_url(cart_item.id || cart_item.item_id) %>" method="post" class="update" data-remote="true">
+<form action="<%= cart_item_url(cart_item.id || cart_item.item_id) %>" method="post" class="update">
   <input type="hidden" name="_method" value="put">
   <%= auth_token %>
 

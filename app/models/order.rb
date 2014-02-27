@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :address
-  has_many :order_items, inverse_of: :order, include: :item, dependent: :destroy
+  has_many :order_items, inverse_of: :order, dependent: :destroy
 
   after_commit :empty_cart
 
@@ -15,11 +15,15 @@ class Order < ActiveRecord::Base
 
       order_items = []
       cart.cart_items.each do |cart_item|
+        item = cart_item.item
+        quantity = cart_item.quantity
+
+        item.remove_stock!(quantity)
         order_items << OrderItem.new(
           order_id: self.id,
-          item_id: cart_item.item_id,
-          price: cart_item.item.price,
-          quantity: cart_item.quantity
+          item_id: item.id,
+          price: item.price,
+          quantity: quantity
         )
       end
 

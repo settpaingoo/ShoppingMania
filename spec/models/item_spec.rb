@@ -32,49 +32,36 @@ describe Item do
     it { should belong_to(:category) }
   end
 
-  let(:brand) { double("brand") }
-  let(:category) { double("category") }
-  let(:item) { Item.new(name: "A", price: 10, stock: 15, brand_id: 1, category_id: 1) }
+  3.times { |i| FactoryGirl.create(:brand, name: "Brand#{i+1}")}
+  3.times { |i| FactoryGirl.create(:category, name: "Category#{i+1}")}
 
-  context "adding more stock" do
-    before do
-      item.stub(:brand).and_return(brand)
-      item.stub(:category).and_return(category)
+  context "filter items" do
+    item1 = FactoryGirl.create(:item, price: 10)
+    item2 = FactoryGirl.create(:item, price: 5, category_id: 2)
+    item3 = FactoryGirl.create(:item, price: 7, brand_id: 2)
+    items = Item.where("id > 0")
+
+    it "should filter by price" do
+      filtered_items1 = Item.filter_by_price(items, min: 6)
+      filtered_items2 = Item.filter_by_price(items, max: 8)
+      filtered_items3 = Item.filter_by_price(items, min: 6, max: 9)
+
+      expect(filtered_items1).to eq([item1, item3])
+      expect(filtered_items2).to eq([item2, item3])
+      expect(filtered_items3).to eq([item3])
     end
 
-    it "should increase stock for valid numbers" do
-      expect(item.add_stock(3)).to be_true
-      expect(item.stock).to eq(18)
+    it "should filter by brand id" do
+      filtered_items = Item.filter_by_brand(items, [1])
+
+      expect(filtered_items).to match_array([item1, item2])
     end
 
-    it "should not increase stock for invalid numbers" do
-      expect(item.add_stock(0)).to be_false
-      expect(item.add_stock(-4)).to be_false
-      expect(item.stock).to eq(15)
+    it "should filter by category id" do
+      filtered_items = Item.filter_by_category(items, [2])
+
+      expect(filtered_items).to eq([item2])
     end
+
   end
-
-  context "removing from stock" do
-    before do
-      item.stub(:brand).and_return(brand)
-      item.stub(:category).and_return(category)
-    end
-
-    it "should decrease stock for valid numbers" do
-      expect(item.remove_stock(4)).to be_true
-      expect(item.stock).to eq(11)
-    end
-
-    it "should not decrease stock for invalid numbers" do
-      expect(item.remove_stock(0)).to be_false
-      expect(item.remove_stock(-3)).to be_false
-      expect(item.stock).to eq(15)
-    end
-
-    it "should not allow to remove more than current stock" do
-      expect(item.remove_stock(16)).to be_false
-      expect(item.stock).to eq(15)
-    end
-  end
-  #need to write specs for class methods
 end

@@ -4,7 +4,7 @@
       <% @item.photos.each do |photo| %>
         <li>
           <a href="#" data-url="<%= photo.image.url(:full) %>">
-            <img src="<%= photo.image.url(:thumb) %>">
+            <img src="<%= photo.image.url(:thumb) %>" data-url="<%= photo.image.url(:full) %>">
           </a>
         </li>
       <% end %>
@@ -35,7 +35,10 @@
       <%= render partial: "status_messages" %>
     </div>
 
-    <%= render partial: "cart_items/new", locals: { item: @item } %>
+    <% if @item.stock > 0 %>
+      <%= render partial: "cart_items/new", locals: { item: @item } %>
+    <% end %>
+
     <% if current_user %>
       <%= render partial: "wishlist_items/new", locals: { item: @item, wishlists: @wishlists } %>
     <% end %>

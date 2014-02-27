@@ -22,7 +22,7 @@
 
     <nav class="right-nav-links">
       <ul class="group">
-        <li><%= link_to "Cart", cart_url(current_user.try(:cart) || "dummy") %></li>
+        <li><%= link_to "Cart", cart_url(current_user.try(:cart) || "temp") %></li>
         <% if current_user %>
           <li><%= link_to "Account", user_url(current_user) %></li>
           <li><%= button_to "Sign Out", session_url, method: :delete %></li>

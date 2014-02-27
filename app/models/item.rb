@@ -15,13 +15,14 @@ class Item < ActiveRecord::Base
 
   validates :name, :price, :stock, :brand, :category, presence: true
   validates :price, numericality: { greater_than: 0 }
-  validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :stock, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 0 }
 
   belongs_to :brand
   belongs_to :category
   has_many :photos, dependent: :destroy, inverse_of: :item
   has_many :reviews
-  has_many :order_items
 
   def self.filter(options)
     items = Item.includes(:photos)
@@ -92,24 +93,25 @@ class Item < ActiveRecord::Base
   end
 
   def average_rating
-    # Rails.cache.fetch("average_rating_item#{self.id}", :expires_in => 1.hour) do
+    Rails.cache.fetch("average_rating_item#{self.id}", :expires_in => 1.hour) do
       force_average_rating
-    # end
+    end
   end
 
   def force_average_rating
     self.reviews.average("rating").to_f.round(1)
   end
 
-  def add_stock(quantity)
-    raise "cannot add stock" if quantity < 1
+  def add_stock!(quantity)
+    raise "must add positive stock" if quantity < 1
 
     self.stock += quantity
     self.save!
   end
 
-  def remove_stock(quantity)
-    raise "cannot remove stock" if quantity < 1 || quantity > stock
+  def remove_stock!(quantity)
+    raise "must remove positive stock" if quantity < 1
+    raise "not enough stock" if quantity > stock
 
     self.stock -= quantity
     self.save!

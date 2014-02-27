@@ -27,7 +27,7 @@
           <td class="name">
             <img src="<%= cart_item.item.thumbnail %>">
             <%= link_to cart_item.item.name, item_url(cart_item.item) %>
-            <%= button_to "Save for later", cart_item_save_url(cart_item.id || cart_item.item_id), method: :put %>
+            <%= button_to "Save for later", item_saved_items_url(cart_item.item) %>
           </td>
           <td class="currency">$<%= cart_item.item.price %></td>
           <td class="quantity group"><%= render partial: "cart_items/form", locals: { cart_item: cart_item } %></td>
@@ -37,21 +37,40 @@
       </tbody>
     </table>
 
-    <%= link_to "Checkout", new_order_url %>
+    <div class="button group">
+      <%= link_to "Checkout", new_order_url %>
+    </div>
+
+  <% end %>
+
+  <% unless @cart.saved_items.empty? %>
+    <h3>Saved Items</h3>
+
+    <section class="saved group">
+      <ul>
+        <% @cart.saved_items.each do |saved_item| %>
+          <li>
+            <img src="<%= saved_item.item.thumbnail %>">
+            <%= link_to saved_item.item.name, item_url(saved_item.item) %>
+            <p>$<%= saved_item.item.price %></p>
+            <div class="group">
+              <form action="<%= item_cart_items_url(saved_item.item) %>" method="post">
+                <%= auth_token %>
+                <input type="hidden" name="cart_item[quantity]" value="1">
+
+                <input type="submit" value="Move to Cart">
+              </form>
+              <%= button_to "Remove", saved_item_url(saved_item.id || saved_item.item_id), method: :delete %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </section>
   <% end %>
 </section>
 
 <script>
 $(document).ready(function () {
-  $(".update").on("ajax:success", function(event, data){
-    $(".status-messages").html(data["status_messages"]);
-
-    var $subtotal = $(event.target).closest("td").siblings(".subtotal");
-    $subtotal.html("$" + data["subtotal"]);
-
-    $(".total").html("$" + data["total"]);
-  });
-
   $(".remove").on("ajax:success", function(event, data){
     if (data["total"] > 0) {
       $(event.target).closest("tr").remove();

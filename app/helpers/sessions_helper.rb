@@ -9,12 +9,16 @@ module SessionsHelper
 
   def sign_in(user)
     @current_user = user
-    current_cart = Cart.build_temporary_cart(session[:cart_item_params])
+    current_cart = Cart.build_temporary_cart(
+      session[:cart_item_params],
+      session[:saved_item_ids]
+    )
     user.cart.combine(current_cart)
 
     token = Token.create(user_id: user.id)
     session[:session_token] = token.token_string
     session[:cart_item_params] = nil
+    session[:saved_item_ids] = nil
   end
 
   def sign_out

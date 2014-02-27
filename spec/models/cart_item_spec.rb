@@ -18,10 +18,6 @@ describe CartItem do
     it { should validate_numericality_of(:quantity).only_integer }
   end
 
-  context "validates that same item is not duplicated in each cart" do
-    it { should validate_uniqueness_of(:item_id).scoped_to(:cart_id) }
-  end
-
   context "has associations" do
     it { should belong_to(:cart) }
     it { should belong_to(:item) }
@@ -35,16 +31,4 @@ describe CartItem do
     expect(cart_item.subtotal).to eq(105)
   end
 
-  context "modifying item quantities" do
-    it "does not allow negative quantities" do
-      expect(cart_item.modify(-3)).to be_false
-    end
-
-    it "removes the item for zero quantities" do
-      cart_item.should_receive(:remove).and_return(true)
-      expect(cart_item.modify(0)).to be_true
-    end
-  end
-
-  #need to add specs for remove and modify
 end

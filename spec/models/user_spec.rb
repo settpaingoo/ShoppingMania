@@ -25,10 +25,6 @@ describe User do
     it { should have_secure_password }
   end
 
-  context "only allows unique email addresses" do
-    it { should validate_uniqueness_of(:email).case_insensitive }
-  end
-
   context "checks correct email format" do
     it { should allow_value("email@email.com", "e.ma_il@email.com").for(:email) }
     it { should_not allow_value("www.email.com", "email@ema@il.com").for(:email) }

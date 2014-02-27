@@ -13,6 +13,5 @@ describe Category do
   context "has associations" do
     it { should belong_to(:parent_category) }
     it { should have_many(:sub_categories) }
-    it { should have_many(:items) }
   end
 end

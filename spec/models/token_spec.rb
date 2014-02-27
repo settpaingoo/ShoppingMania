@@ -6,9 +6,8 @@ describe Token do
     it { should_not allow_mass_assignment_of(:token_string) }
   end
 
-  context "validates presence of mandatory attributes" do
+  context "validates presence of user" do
     it { should validate_presence_of(:user) }
-    it { should validate_presence_of(:token_string) }
   end
 
   context "has associations" do

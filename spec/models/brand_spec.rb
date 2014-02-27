@@ -9,7 +9,4 @@ describe Brand do
     it { should validate_presence_of(:name) }
   end
 
-  context "has associations" do
-    it { should have_many(:items) }
-  end
 end

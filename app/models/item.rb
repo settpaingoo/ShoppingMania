@@ -84,12 +84,12 @@ class Item < ActiveRecord::Base
         .group("items.id")
         .order("SUM(order_items.quantity) DESC NULLS LAST")
     else
-      items
+      items.order("items.updated_at")
     end
   end
 
   def thumbnail
-    photos.last.image.url(:thumb)
+    photos.first.image.url(:thumb)
   end
 
   def average_rating

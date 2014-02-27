@@ -1,9 +1,23 @@
 <ul class="wishlists">
   <% @wishlists.each do |wishlist| %>
     <li>
+      <section class="status-messages">
+
+      </section>
       <%= render partial: "wishlist", locals: { wishlist: wishlist } %>
     </li>
   <% end %>
 
   <li><%= render partial: "form" %></li>
 </ul>
+
+<script>
+$(document).ready(function(){
+  $(".move-to-cart").on("ajax:success", function(event, data){
+    $(this).closest(".wishlist-item").prev(".status-messages").html(data.status_messages);
+  });
+})
+
+
+
+</script>

@@ -35,7 +35,7 @@ class CartItemsController < ApplicationController
     else
       session[:cart_item_params][params[:id].to_i] = new_quantity
       cart_item = CartItem.new(item_id: params[:id].to_i, quantity: new_quantity)
-      cart_item.cart = Cart.build_temporary_cart(params[:cart_item_params])
+      cart_item.cart = Cart.build_temporary_cart(session[:cart_item_params])
     end
     flash[:notice] = "Item has been updated"
 

@@ -34,5 +34,5 @@
     <%= link_to "Forgot password?", reset_password_users_url, class: "reset-password" %>
   </div>
 
-  <%= render partial: "demo" %>
 </form>
+<%= render partial: "demo", locals: { demo_user: @demo_user } %>

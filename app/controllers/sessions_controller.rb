@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   before_filter :require_current_user!, only: :destroy
 
   def new
+    @demo_user = User.find(1)
   end
 
   def create

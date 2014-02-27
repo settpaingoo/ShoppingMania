@@ -1,5 +1,6 @@
 <section class="wishlist-item">
   <h3><%= wishlist.name %></h3>
+
   <ul>
     <% if wishlist.wishlist_items.empty? %>
       <p>There are no items in this wishlist.</p>
@@ -9,7 +10,8 @@
           <img src="<%= wishlist_item.item.thumbnail %>">
           <%= link_to wishlist_item.item.name, item_url(wishlist_item.item) %>
           <div class="group">
-            <form action="<%= item_cart_items_url(wishlist_item.item) %>" method="post">
+            <form action="<%= item_cart_items_url(wishlist_item.item) %>" method="post"
+              data-remote="remote" class="move-to-cart">
               <%= auth_token %>
               <input type="hidden" name="cart_item[quantity]" value="1">
 

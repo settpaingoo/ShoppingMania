@@ -1,5 +1,5 @@
-<form action="<%= session_url %>" method="post">
-  <input type="hidden" name="user[email]" value="user1@example.com">
+<form action="<%= session_url %>" method="post" class="demo">
+  <input type="hidden" name="user[email]" value="<%= demo_user.email %>">
   <input type="hidden" name="user[password]" value="mypassword">
 
   <div class="submit">

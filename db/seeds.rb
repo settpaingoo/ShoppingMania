@@ -61,9 +61,9 @@ def generate_item_name(brand_id)
   "#{brand} #{adj} #{noun}"
 end
 
-ITEMS_COUNT = 10
+ITEMS_COUNT = 50
 items = []
-(ITEMS_COUNT - 2).times do
+(ITEMS_COUNT - 10).times do
   brand_id = rand(1..brand_count)
   items << Item.new(
     name: generate_item_name(brand_id),
@@ -73,7 +73,7 @@ items = []
     category_id: rand(1..category_count)
   )
 end
-2.times do
+10.times do
   brand_id = rand(1..brand_count)
   items << Item.new(
     name: generate_item_name(brand_id),

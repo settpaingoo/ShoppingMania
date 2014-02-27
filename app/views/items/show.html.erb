@@ -14,6 +14,10 @@
   </section>
 
   <section class="item-details">
+    <div class="status-messages">
+      <%= render partial: "status_messages" %>
+    </div>
+
     <p>Brand: <%= @item.brand.name %></p>
     <h2><%= @item.name %></h2>
     <% if @item_rating >= 1 %>
@@ -29,9 +33,6 @@
   </section>
 
   <section class="item-controls">
-    <div class="status-messages">
-      <%= render partial: "status_messages" %>
-    </div>
 
     <% if @item.stock > 0 %>
       <%= render partial: "cart_items/new", locals: { item: @item } %>

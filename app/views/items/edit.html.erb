@@ -1,10 +1,10 @@
-<section class="item-form">
+<section class="item-form group">
   <ul>
     <% @item.photos.each do |photo| %>
       <li class="group">
         <img src="<%= photo.image.url(:thumb) %>">
         <%= button_to "Remove Photo", photo_url(photo),
-          method: :delete, form_class: "remove-photo" %>
+          method: :delete, form_class: "remove-item" %>
       </li>
     <% end %>
   </ul>
@@ -24,9 +24,10 @@
     <%= render partial:"item_fields", locals: { item: @item } %>
 
     <div class="submit">
-      <input type="submit" value="Update item">
+      <input type="submit" value="Update Item">
     </div>
   </form>
 
-  <%= button_to "Delete Item", item_url(@item), method: :delete %>
+  <%= button_to "Delete Item", item_url(@item), method: :delete, form_class: "remove-item" %>
+
 </section>

@@ -6,14 +6,28 @@ Main Features
 
 Browsing items
 
+The main page lists all items and
+
+
+Reviews
+
 Adding items to cart
 
 Saving items/wishlist
 
+Orders
+
+
 Additional Features
 
+Users
+
+Addresses
+
+Admin
 
 
+Future plans
 
 == Getting Started
 

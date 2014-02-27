@@ -3,9 +3,7 @@
     <ul>
       <% @item.photos.each do |photo| %>
         <li>
-          <a href="#" data-url="<%= photo.image.url(:full) %>">
-            <img src="<%= photo.image.url(:thumb) %>" data-url="<%= photo.image.url(:full) %>">
-          </a>
+          <img src="<%= photo.image.url(:thumb) %>" data-url="<%= photo.image.url(:full) %>">
         </li>
       <% end %>
     </ul>
@@ -46,12 +44,13 @@
 </section>
 
 <section class="reviews">
-  <p>Reviews</p>
+  <h3>Reviews</h3>
   <ul>
     <% @item.reviews.includes(:user).each do |review| %>
       <li>
         <h4>By: <%= review.user.full_name %></h4>
         <h3><%= review.title %></h3>
+        <p>Rating: <%= review.rating %></p>
         <p><%= review.body %></p>
       </li>
     <% end %>
@@ -67,11 +66,11 @@ $(document).ready(function () {
     this.reset();
   });
 
-  $(".photos-list").on("click", "a", function(event){
-    event.preventDefault();
+  $(".photos-list").on("click", "img", function(event){
+    $photoImg = $(".photo").find("img");
 
     var url = $(this).attr("data-url");
-    $(".photo").find("img").attr("src", url);
+    $photoImg.attr("src", url);
   });
 });
 

@@ -89,7 +89,7 @@ class Item < ActiveRecord::Base
   end
 
   def thumbnail
-    photos.first.image.url(:thumb)
+    photos.last.image.url(:thumb)
   end
 
   def average_rating

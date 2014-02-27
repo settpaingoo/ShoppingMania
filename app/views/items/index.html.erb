@@ -1,4 +1,4 @@
-<section class="main">
+<section class="main group">
   <section class="sidebar">
     <%= render partial: "filter_items_form",
       locals: { items: @items, brands: Brand.all, categories: Category.all, filter: params[:filter] || {} }%>

@@ -9,7 +9,7 @@ class WishlistItemsController < ApplicationController
     if wishlist_item.save
       flash[:notice] = "Item has been added to your wishlist"
     else
-      flash[:error] = "Please select a wishlist or create a new one"
+      flash[:error] = "Please select a valid wishlist"
     end
 
     if request.xhr?

@@ -6,8 +6,8 @@ input[type="file"] {
 }
 
 .main {
-  width: 1260px;
-  margin: 10px;
+  width: 1300px;
+  margin: 10px auto;
 }
 
 .sidebar {
@@ -22,6 +22,7 @@ input[type="file"] {
   float: right;
   background: #fff;
   width: 1000px;
+  padding: 10px 20px;
 }
 
 .button > input {

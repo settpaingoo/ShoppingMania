@@ -1,28 +1,51 @@
-<ul>
-  <% @cart.cart_items.each do |cart_item| %>
-    <li>
-      <% item = cart_item.item %>
-      <label>Name: <%= item.name %></label><br>
-      <label>Price: <%= item.price %></label><br>
-      <label>Quantity: <%= cart_item.quantity %></label><br>
-      <label>Subtotal: <%= cart_item.subtotal %></label>
-    </li>
-  <% end %>
-</ul>
+<section class="order-form">
+  <table>
+    <thead>
+      <th class="name">Name</th>
+      <th class="currency">Price</th>
+      <th class="quantity">Quantity</th>
+      <th class="currency">Subtotal</th>
+    </thead>
 
-<form action="<%= orders_url %>" method="post">
-  <%= auth_token %>
+    <tfoot>
+      <td colspan="3" class="currency">Grand Total:</td>
+      <td class="currency">$<%= @cart.total %></td>
+    </tfoot>
 
-  <div>
-    <% @addresses.each do |address| %>
-    <input type="radio" value="<%= address.id %>" name="address[id]">
-      <%= address.street %>
-      <%= address.city %>
-      <%= address.state %>
-      <%= address.zipcode %>
-    <% end %>
-  </div>
+    <tbody>
+      <% @cart.cart_items.each do |cart_item| %>
+        <tr>
+          <% item = cart_item.item %>
+          <td class="name">
+            <img src="<%= item.thumbnail %>">
+            <%= item.name %>
+          </td>
+          <td class="currency">$<%= item.price %></td>
+          <td class="quantity"><%= cart_item.quantity %></td>
+          <td class="currency">$<%= cart_item.subtotal %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-  <input type="submit" value="Order">
-</form>
+  <form action="<%= orders_url %>" method="post">
+    <%= auth_token %>
 
+    <ul>
+      <h4>Please select an address</h4>
+      <% @addresses.each do |address| %>
+      <li>
+        <input type="radio" value="<%= address.id %>" name="address[id]" checked>
+          <%= address.street %>,
+          <%= address.city %>,
+          <%= address.state %>
+          <%= address.zipcode %>
+        <% end %>
+      </li>
+    </ul>
+
+    <div class="submit">
+      <input type="submit" value="Order">
+    </div>
+  </form>
+</section>

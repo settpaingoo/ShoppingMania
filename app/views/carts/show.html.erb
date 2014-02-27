@@ -71,6 +71,13 @@
 
 <script>
 $(document).ready(function () {
+  $(".update").on("ajax:success", function(event, data){
+    $(".status-messages").html(data.status_messages);
+    $(this).find("input[type='number']").val(data.quantity);
+    $(this).closest("tr").find(".subtotal").html("$" + data.subtotal);
+    $(".total").html("$" + data.total);
+  });
+
   $(".remove").on("ajax:success", function(event, data){
     if (data["total"] > 0) {
       $(event.target).closest("tr").remove();

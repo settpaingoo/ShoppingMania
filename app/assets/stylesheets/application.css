@@ -66,6 +66,7 @@ a {
   background: #00f;
   color: #fff;
   padding: 5px;
+  min-width: 700px;
 }
 
 .top-nav-bar a {

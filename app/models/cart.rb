@@ -6,7 +6,7 @@ class Cart < ActiveRecord::Base
   has_many :cart_items, dependent: :destroy, inverse_of: :cart
   has_many :saved_items, dependent: :destroy, inverse_of: :cart
 
-  def self.build_temporary_cart(cart_item_params, saved_item_ids)
+  def self.build_temporary_cart(cart_item_params, saved_item_ids = [])
     cart = Cart.new
 
     cart_item_params.try(:each) do |item_id, quantity|

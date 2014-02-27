@@ -7,7 +7,7 @@ class OrderItem < ActiveRecord::Base
   validates :item_id, uniqueness: { scope: :order_id }
 
   belongs_to :order
-  belongs_to :item, include: :photos
+  belongs_to :item
 
   def subtotal
     price * quantity

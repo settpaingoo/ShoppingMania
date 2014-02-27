@@ -27,24 +27,29 @@ class CartItemsController < ApplicationController
 
   def update
     new_quantity = params[:cart_item][:quantity].to_i
+    new_quantity = 1 if new_quantity < 1
 
     if current_user
       cart_item = CartItem.find(params[:id])
-      if cart_item.update_attributes(quantity: new_quantity)
-        flash[:notice] = "Successfully updated"
-      else
-        flash[:error] = "Could not update the item"
-      end
+      cart_item.update_attributes(quantity: new_quantity)
     else
-      if new_quantity > 0
-        session[:cart_item_params][params[:id].to_i] = new_quantity
-        flash[:notice] = "Successfully updated"
-      else
-        flash[:error] = "Could not update the item"
-      end
+      session[:cart_item_params][params[:id].to_i] = new_quantity
+      cart_item = CartItem.new(item_id: params[:id].to_i, quantity: new_quantity)
+      cart_item.cart = Cart.build_temporary_cart(params[:cart_item_params])
     end
+    flash[:notice] = "Item has been updated"
 
-    redirect_to cart_url(current_user.try(:cart) || "temp")
+    if request.xhr?
+      render json: {
+        status_messages: status_messages,
+        quantity: new_quantity,
+        subtotal: cart_item.subtotal,
+        total: cart_item.cart.total
+      }
+      clear_flash
+    else
+      redirect_to cart_url(current_user.try(:cart) || "temp")
+    end
   end
 
   def destroy
@@ -54,7 +59,7 @@ class CartItemsController < ApplicationController
       cart = cart_item.cart
     else
       session[:cart_item_params].delete(params[:id].to_i)
-      cart = Cart.build_temporary_cart(session[:cart_item_params], [])
+      cart = Cart.build_temporary_cart(session[:cart_item_params])
     end
 
     if request.xhr?

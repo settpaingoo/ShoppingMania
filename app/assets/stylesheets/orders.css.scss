@@ -19,7 +19,7 @@
 }
 
 .order-summary {
-  width: 250px;
+  width: 200px;
   float: left;
   padding: 10px;
 }
@@ -39,6 +39,7 @@
   float: left;
   padding: 10px;
   border-left: 1px solid #ccc;
+  min-height: 120px;
 }
 
 .order-items img {
@@ -117,4 +118,9 @@
 .order-item-detail > table .quantity {
   width: 75px;
   text-align: right;
+}
+
+.order-item-detail img {
+  float: left;
+  margin: 0 10px 0 0;
 }

@@ -35,6 +35,10 @@ ShoppingMania::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
+
+  ActionMailer::Base.delivery_method = :letter_opener
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {

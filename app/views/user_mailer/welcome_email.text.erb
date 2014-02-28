@@ -3,6 +3,6 @@ Welcome
 Thank you for signing up an account at Shopping Mania.
 
 To activate your account, please copy and paste the following link into your browser.
-Account Activation link: <%= @url %>
+Account Activation link: <%= activate_users_url(activation_token: @activation_token) %>
 
 We sincerely hope that you'll enjoy shopping at Shopping Mania.

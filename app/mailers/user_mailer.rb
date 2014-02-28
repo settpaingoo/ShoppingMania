@@ -3,23 +3,13 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
     token = Token.create(user_id: user.id)
-    @url = Addressable::URI.new(
-      scheme: "http",
-      host: "localhost:3000",
-      path: "/users/activate",
-      query_values: { activation_token: token.token_string }
-    ).to_s
+    @activation_token = token.token_string
     mail(to: user.email, subject: "Welcome to Shopping Mania")
   end
 
   def password_reset_email(user)
     token = Token.create(user_id: user.id)
-    @url = Addressable::URI.new(
-      scheme: "http",
-      host: "localhost:3000",
-      path: "/users/reset_password",
-      query_values: { password_reset_token: token.token_string }
-    ).to_s
+    @password_reset_token = token.token_string
     mail(to: user.email, subject: "Reset your password")
   end
 

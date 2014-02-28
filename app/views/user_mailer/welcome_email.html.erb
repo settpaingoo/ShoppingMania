@@ -7,7 +7,7 @@
     <h3>Welcome</h3>
     <p>Thank you for signing up an account at Shopping Mania.</p>
     <p>To activate your account, please click on the following link.
-      <a href="<%= @url %>">Activate my account</a>
+      <a href="<%= activate_users_url(activation_token: @activation_token) %>">Activate my account</a>
     </p>
     <p>We sincerely hope that you'll enjoy shopping at Shopping Mania</p>
   </body>

@@ -6,7 +6,6 @@ class OrdersController < ApplicationController
     @orders = current_user.orders.includes(:address)
   end
 
-  #add styles to orders/new
   def new
     @cart = current_user.cart
     @addresses = current_user.addresses

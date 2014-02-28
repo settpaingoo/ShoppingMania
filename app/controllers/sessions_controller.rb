@@ -35,6 +35,15 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    if current_user.id == 1
+      current_user.update_attributes(
+        first_name: "Demo",
+        last_name: "User",
+        email: "user1@example.com",
+        password: "mypassword"
+      )
+    end
+
     sign_out
     redirect_to new_session_url
   end

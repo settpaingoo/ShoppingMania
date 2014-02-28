@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
     if update_status
       flash[:notice] = "Successfully updated"
-      redirect_to user_url(@user)
+      redirect_to edit_user_url(@user)
     else
       flash[:errors] = "Could not update user information"
       render :edit

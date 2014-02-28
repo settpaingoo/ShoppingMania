@@ -1,0 +1,24 @@
+<nav class="top-nav-bar group">
+  <nav class="left-nav-links">
+    <ul class="group">
+      <li><%= link_to "Home", items_url %></li>
+
+      <% if current_user.try(:admin?) %>
+        <li><%= link_to "Add New Item", new_item_url %></li>
+        <li><%= render partial: "items/admin_search_form" %></li>
+      <% end %>
+    </ul>
+  </nav>
+
+  <nav class="right-nav-links">
+    <ul class="group">
+      <li><%= link_to "Cart", cart_url(current_user.try(:cart) || "temp") %></li>
+      <% if current_user %>
+        <li><%= link_to "Account", user_url(current_user) %></li>
+        <li><%= button_to "Sign Out", session_url, method: :delete %></li>
+      <% else %>
+        <li><%= link_to "Sign In", new_session_url %></li>
+      <% end %>
+    </ul>
+  </nav>
+</nav>

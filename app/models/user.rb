@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, uniqueness: true
 
   has_many :tokens
   has_one :cart, inverse_of: :user

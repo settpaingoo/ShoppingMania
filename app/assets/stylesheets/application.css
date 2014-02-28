@@ -13,7 +13,7 @@
  */
 
 /* --- RESET --- */
-html, body, form, nav, ul, li, label, h1, h2, h3, h4, div, p, section {
+html, body, form, nav, ul, li, label, h1, h2, h3, h4, div, p, section, header {
   padding: 0;
   border: 0;
   margin: 0;
@@ -108,4 +108,36 @@ a {
 
 .right-nav-links form {
   margin: 5px 10px;
+}
+
+header {
+  background: #0ef;
+  min-width: 900px;
+}
+
+header > img {
+  float: left;
+}
+
+.motto {
+  width: 500px;
+  float: right;
+  margin: 50px auto;
+}
+
+.motto > h2,
+.motto > h3 {
+  text-align: center;
+  font-weight: bold;
+  margin: 5px;
+  font-family: "geneva";
+  font-style: italic;
+}
+
+.motto > h2 {
+  font-size: 24px;
+}
+
+.motto > h3 {
+  font-size: 20px;
 }

@@ -33,6 +33,8 @@ class User < ActiveRecord::Base
         password: SecureRandom::urlsafe_base64(8)
       )
     end
+    user.activated = true
+    user.save!
 
     user
   end

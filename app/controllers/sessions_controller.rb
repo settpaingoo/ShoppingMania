@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     if request.env['omniauth.auth']
       auth = request.env['omniauth.auth']
       user = User.find_by_uid(auth[:uid]) || User.create_from_fb_data(auth)
+      user.cart || user.create_cart
     else
       user = User.find_by_credentials(
         params[:user][:email],
@@ -30,6 +31,7 @@ class SessionsController < ApplicationController
       else
         flash[:error] = "Please check your email and activate your account"
       end
+      @demo_user = User.find(1)
       render :new
     end
   end

@@ -25,6 +25,8 @@ gem 'addressable'
 
 gem 'activerecord-import', ">= 0.2.0"
 
+gem 'newrelic_rpm'
+
 gem 'faker'
 # Gems used only for assets and not required
 # in production environments by default.
